@@ -322,16 +322,46 @@
           </form>
         </div>
         <div class="form-card" style="margin-top:0">
-          <h2>📤 Publish Menu</h2>
+          <h2>� Auto-Publish to GitHub</h2>
           <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:20px;line-height:1.6">
-            Customers load the menu from <code style="background:var(--bg3);padding:2px 6px;border-radius:4px">menu.json</code>.
-            After making changes, export and upload this file to your host.
+            Connect your GitHub repo so every change you make here is instantly live for all customers — no manual uploading needed.
           </p>
-          <div style="background:var(--bg3);border-radius:10px;padding:16px;margin-bottom:20px;font-size:0.85rem;line-height:1.8;color:var(--text-muted)">
-            <strong style="color:var(--text)">Steps:</strong><br>
-            1. Edit items &amp; info above → 2. Export menu.json → 3. Upload to your host alongside index.html
+
+          <!-- Setup instructions -->
+          <details style="margin-bottom:20px">
+            <summary style="cursor:pointer;font-size:0.85rem;font-weight:600;color:var(--primary);padding:8px 0">
+              ▶ How to get a GitHub Token (one-time setup)
+            </summary>
+            <div style="background:var(--bg3);border-radius:10px;padding:16px;margin-top:10px;font-size:0.82rem;line-height:1.9;color:var(--text-muted)">
+              1. Go to <strong style="color:var(--text)">github.com → Settings → Developer settings</strong><br>
+              2. Click <strong style="color:var(--text)">Personal access tokens → Tokens (classic)</strong><br>
+              3. Click <strong style="color:var(--text)">Generate new token (classic)</strong><br>
+              4. Give it a name e.g. <em>menu-publish</em><br>
+              5. Tick the <strong style="color:var(--text)">repo</strong> checkbox (full repo access)<br>
+              6. Click <strong style="color:var(--text)">Generate token</strong> and copy it<br>
+              7. Paste it below — it's stored only in your browser
+            </div>
+          </details>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="gh-owner">GitHub Username</label>
+              <input type="text" id="gh-owner" placeholder="e.g. johndoe" />
+            </div>
+            <div class="form-group">
+              <label for="gh-repo">Repository Name</label>
+              <input type="text" id="gh-repo" placeholder="e.g. yene-habeshan-menu" />
+            </div>
+            <div class="form-group full">
+              <label for="gh-token">Personal Access Token</label>
+              <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" />
+            </div>
           </div>
-          <button class="btn btn-primary" onclick="exportMenuJSON()">⬇ Export menu.json</button>
+          <div class="form-actions" style="flex-wrap:wrap;gap:10px">
+            <button class="btn btn-ghost" onclick="saveGithubConfig()">💾 Save Config</button>
+            <button class="btn btn-primary" id="publish-btn" onclick="publishToGitHub()">🚀 Publish Now</button>
+            <span id="publish-status" style="font-size:0.82rem;color:var(--text-muted);align-self:center"></span>
+          </div>
         </div>
       </div>
 
@@ -699,6 +729,7 @@ function initAdminPage() {
   }
   loadSettings();
   renderDashboard();
+  populateGithubFields();
   switchView('dashboard', document.querySelector('[data-view=dashboard]'));
 }
 
@@ -878,13 +909,95 @@ function saveSettings() {
   showToast('Settings saved');
 }
 
-function exportMenuJSON() {
-  const data={restaurant:getRestaurantInfo(),items:getItems()};
-  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a'); a.href=url; a.download='menu.json'; a.click();
-  URL.revokeObjectURL(url);
-  showToast('menu.json downloaded — upload it to your host');
+// ── GITHUB CONFIG ────────────────────────────────────────────
+const GH_CONFIG_KEY = 'menu_gh_config';
+
+function loadGithubConfig() {
+  try { return JSON.parse(localStorage.getItem(GH_CONFIG_KEY)) || {}; } catch { return {}; }
+}
+
+function saveGithubConfig() {
+  const cfg = {
+    owner: document.getElementById('gh-owner').value.trim(),
+    repo:  document.getElementById('gh-repo').value.trim(),
+    token: document.getElementById('gh-token').value.trim(),
+  };
+  if (!cfg.owner || !cfg.repo || !cfg.token) {
+    showToast('Fill in all three GitHub fields', 'error'); return;
+  }
+  localStorage.setItem(GH_CONFIG_KEY, JSON.stringify(cfg));
+  showToast('GitHub config saved');
+}
+
+function populateGithubFields() {
+  const cfg = loadGithubConfig();
+  if (cfg.owner) document.getElementById('gh-owner').value = cfg.owner;
+  if (cfg.repo)  document.getElementById('gh-repo').value  = cfg.repo;
+  if (cfg.token) document.getElementById('gh-token').value = cfg.token;
+}
+
+async function publishToGitHub() {
+  // Save any unsaved field values first
+  const owner = document.getElementById('gh-owner').value.trim();
+  const repo  = document.getElementById('gh-repo').value.trim();
+  const token = document.getElementById('gh-token').value.trim();
+
+  if (!owner || !repo || !token) {
+    showToast('Enter your GitHub username, repo, and token first', 'error'); return;
+  }
+
+  const btn    = document.getElementById('publish-btn');
+  const status = document.getElementById('publish-status');
+  btn.disabled = true;
+  btn.textContent = '⏳ Publishing…';
+  status.textContent = '';
+
+  const content = JSON.stringify({ restaurant: getRestaurantInfo(), items: getItems() }, null, 2);
+  const encoded = btoa(unescape(encodeURIComponent(content))); // base64, handles unicode
+  const apiUrl  = `https://api.github.com/repos/${owner}/${repo}/contents/menu.json`;
+
+  try {
+    // Get current file SHA (needed to update an existing file)
+    let sha = null;
+    const getRes = await fetch(apiUrl, {
+      headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' }
+    });
+    if (getRes.ok) {
+      const fileData = await getRes.json();
+      sha = fileData.sha;
+    }
+
+    // Commit the updated menu.json
+    const putRes = await fetch(apiUrl, {
+      method: 'PUT',
+      headers: {
+        Authorization: `token ${token}`,
+        Accept: 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        message: `Update menu — ${new Date().toLocaleString()}`,
+        content: encoded,
+        ...(sha ? { sha } : {}),
+      }),
+    });
+
+    if (putRes.ok) {
+      showToast('✅ Menu published to GitHub!');
+      status.textContent = `Last published: ${new Date().toLocaleTimeString()}`;
+      localStorage.setItem(GH_CONFIG_KEY, JSON.stringify({ owner, repo, token }));
+    } else {
+      const err = await putRes.json();
+      showToast(`GitHub error: ${err.message}`, 'error');
+      status.textContent = `Error: ${err.message}`;
+    }
+  } catch (e) {
+    showToast('Network error — check your connection', 'error');
+    status.textContent = 'Network error';
+  }
+
+  btn.disabled = false;
+  btn.textContent = '🚀 Publish Now';
 }
 
 // ── SHARED UTILS ──
