@@ -1,0 +1,80 @@
+{
+  "restaurant": {
+    "name": "Bella Cucina",
+    "tagline": "Fine Dining & Catering",
+    "description": "Authentic flavors crafted with passion. Available for dine-in, takeout, and private catering events.",
+    "phone": "+44 7547 226868",
+    "whatsapp": "447547226868",
+    "telegram": "447547226868",
+    "email": "hello@bellacucina.com",
+    "address": "123 Main Street, New York, NY"
+  },
+  "items": [
+    {
+      "id": "1",
+      "title": "Truffle Risotto",
+      "category": "Main Course",
+      "price": "28.00",
+      "description": "Creamy Arborio rice with black truffle shavings, parmesan, and fresh herbs.",
+      "recipe": "Ingredients:\n- 300g Arborio rice\n- 50g black truffle\n- 100g parmesan\n- 1L vegetable stock\n- 1 shallot, diced\n- 2 tbsp butter\n- White wine\n\nMethod:\nSauté shallot in butter, add rice and toast 2 min. Deglaze with wine. Add warm stock ladle by ladle, stirring constantly. Finish with truffle and parmesan.",
+      "emoji": "🍚",
+      "image": "",
+      "badge": "Chef's Pick"
+    },
+    {
+      "id": "2",
+      "title": "Burrata Caprese",
+      "category": "Starters",
+      "price": "16.00",
+      "description": "Fresh burrata with heirloom tomatoes, basil oil, and aged balsamic.",
+      "recipe": "Ingredients:\n- 2 burrata balls\n- 4 heirloom tomatoes\n- Fresh basil\n- Extra virgin olive oil\n- Aged balsamic glaze\n- Sea salt & black pepper\n\nMethod:\nSlice tomatoes, arrange with burrata. Drizzle with olive oil and balsamic. Season and garnish with basil.",
+      "emoji": "🧀",
+      "image": "",
+      "badge": "Popular"
+    },
+    {
+      "id": "3",
+      "title": "Grilled Sea Bass",
+      "category": "Main Course",
+      "price": "34.00",
+      "description": "Mediterranean sea bass with lemon caper butter, roasted vegetables, and herb oil.",
+      "recipe": "Ingredients:\n- 2 sea bass fillets\n- 2 tbsp capers\n- 1 lemon\n- 50g butter\n- Mixed vegetables\n- Fresh herbs\n\nMethod:\nSeason fish, grill skin-side down 4 min. Flip and cook 2 more min. Make caper butter by melting butter with capers and lemon juice. Serve over roasted veg.",
+      "emoji": "🐟",
+      "image": "",
+      "badge": ""
+    },
+    {
+      "id": "4",
+      "title": "Tiramisu",
+      "category": "Desserts",
+      "price": "12.00",
+      "description": "Classic Italian tiramisu with espresso-soaked ladyfingers and mascarpone cream.",
+      "recipe": "Ingredients:\n- 250g mascarpone\n- 3 eggs, separated\n- 80g sugar\n- 200ml espresso\n- Ladyfinger biscuits\n- Cocoa powder\n\nMethod:\nWhip yolks with sugar until pale. Fold in mascarpone. Whip whites to stiff peaks, fold in. Dip ladyfingers in espresso, layer with cream. Dust with cocoa. Chill 4 hours.",
+      "emoji": "🍮",
+      "image": "",
+      "badge": "Signature"
+    },
+    {
+      "id": "5",
+      "title": "Aperol Spritz",
+      "category": "Drinks",
+      "price": "10.00",
+      "description": "Classic Italian aperitif with Aperol, Prosecco, and a splash of soda.",
+      "recipe": "Ingredients:\n- 3 parts Prosecco\n- 2 parts Aperol\n- 1 splash soda water\n- Orange slice\n- Ice\n\nMethod:\nFill glass with ice. Add Prosecco first, then Aperol, then soda. Garnish with orange.",
+      "emoji": "🍹",
+      "image": "",
+      "badge": ""
+    },
+    {
+      "id": "6",
+      "title": "Catering Platter",
+      "category": "Catering",
+      "price": "85.00",
+      "description": "Premium selection of antipasti, charcuterie, and artisan cheeses. Serves 6–8.",
+      "recipe": "Includes:\n- Prosciutto di Parma\n- Salami Milano\n- Burrata & mozzarella\n- Marinated olives\n- Grilled vegetables\n- Artisan bread\n- Seasonal fruits\n- Honey & fig jam\n\nPerfect for events and gatherings. Order 48h in advance.",
+      "emoji": "🍱",
+      "image": "",
+      "badge": "Catering"
+    }
+  ]
+}
