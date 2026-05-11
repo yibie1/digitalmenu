@@ -6,261 +6,345 @@
   <title>Menu</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    .menu-group { margin-bottom: 56px; }
+    /* ── ROUTER: only one page visible at a time ── */
+    .page { display: none; }
+    .page.active { display: block; }
 
-    /* ── CART BUTTON ── */
-    .cart-fab {
-      position: fixed;
-      bottom: 28px;
-      right: 24px;
-      background: #25D366;
-      color: #fff;
-      border: none;
-      border-radius: 50px;
-      padding: 14px 22px;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 6px 24px rgba(37,211,102,0.4);
-      z-index: 150;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .cart-fab:hover { transform: scale(1.05); box-shadow: 0 8px 32px rgba(37,211,102,0.5); }
-    .cart-fab.hidden { display: none; }
-    .cart-count {
-      background: #fff;
-      color: #25D366;
-      border-radius: 50%;
-      width: 24px;
-      height: 24px;
-      font-size: 0.8rem;
+    /* ── PIN GATE ── */
+    .pin-gate {
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 800;
+      background: radial-gradient(ellipse at top, #1e1a14 0%, var(--bg) 70%);
+    }
+    .pin-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px 36px;
+      width: 100%;
+      max-width: 360px;
+      text-align: center;
+    }
+    .pin-icon { font-size: 2.5rem; margin-bottom: 16px; }
+    .pin-card h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 6px; }
+    .pin-card p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 28px; }
+    .pin-dots {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .pin-dot {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      background: transparent;
+      transition: all 0.15s;
+    }
+    .pin-dot.filled { background: var(--primary); border-color: var(--primary); }
+    .pin-dot.error  { background: var(--danger);  border-color: var(--danger); }
+    .pin-pad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .pin-key {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      font-size: 1.2rem;
+      font-weight: 700;
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .pin-key:hover { background: var(--primary); color: #000; border-color: var(--primary); }
+    .pin-key.del { font-size: 1rem; color: var(--text-muted); }
+    .pin-error { color: var(--danger); font-size: 0.82rem; margin-top: 14px; min-height: 18px; }
+
+    /* ── MENU PAGE ── */
+    .menu-group { margin-bottom: 56px; }
+
+    /* ── CART FAB ── */
+    .cart-fab {
+      position: fixed; bottom: 28px; right: 24px;
+      background: #25D366; color: #fff;
+      border: none; border-radius: 50px;
+      padding: 14px 22px; font-size: 1rem; font-weight: 700;
+      cursor: pointer; display: flex; align-items: center; gap: 10px;
+      box-shadow: 0 6px 24px rgba(37,211,102,0.4);
+      z-index: 150; transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .cart-fab:hover { transform: scale(1.05); }
+    .cart-fab.hidden { display: none; }
+    .cart-count {
+      background: #fff; color: #25D366; border-radius: 50%;
+      width: 24px; height: 24px; font-size: 0.8rem; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
     }
 
     /* ── CART DRAWER ── */
     .cart-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.6);
-      z-index: 300;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s;
+      position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+      z-index: 300; opacity: 0; pointer-events: none; transition: opacity 0.25s;
     }
     .cart-overlay.open { opacity: 1; pointer-events: all; }
-
     .cart-drawer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: var(--bg2);
-      border-top: 1px solid var(--border);
-      border-radius: 20px 20px 0 0;
-      z-index: 301;
-      max-height: 80vh;
-      display: flex;
-      flex-direction: column;
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: var(--bg2); border-top: 1px solid var(--border);
+      border-radius: 20px 20px 0 0; z-index: 301; max-height: 80vh;
+      display: flex; flex-direction: column;
       transform: translateY(100%);
       transition: transform 0.3s cubic-bezier(0.32,0.72,0,1);
     }
     .cart-overlay.open .cart-drawer { transform: translateY(0); }
-
-    .cart-handle {
-      width: 40px;
-      height: 4px;
-      background: var(--border);
-      border-radius: 2px;
-      margin: 12px auto 0;
-    }
-
-    .cart-header {
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+    .cart-handle { width: 40px; height: 4px; background: var(--border); border-radius: 2px; margin: 12px auto 0; }
+    .cart-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
     .cart-header h2 { font-size: 1.1rem; font-weight: 700; }
-    .cart-clear {
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      cursor: pointer;
-      padding: 4px 8px;
-      border-radius: 6px;
-    }
+    .cart-clear { background: none; border: none; color: var(--text-muted); font-size: 0.8rem; cursor: pointer; padding: 4px 8px; border-radius: 6px; }
     .cart-clear:hover { color: var(--danger); }
-
-    .cart-items {
-      overflow-y: auto;
-      flex: 1;
-      padding: 12px 20px;
-    }
-
-    .cart-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-    }
+    .cart-items { overflow-y: auto; flex: 1; padding: 12px 20px; }
+    .cart-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
     .cart-item:last-child { border-bottom: none; }
     .cart-item-name { flex: 1; font-size: 0.95rem; font-weight: 600; }
     .cart-item-price { color: var(--primary); font-weight: 700; font-size: 0.9rem; }
-    .qty-controls {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .qty-btn {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 1px solid var(--border);
-      background: var(--bg3);
-      color: var(--text);
-      cursor: pointer;
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.15s;
-    }
+    .qty-controls { display: flex; align-items: center; gap: 8px; }
+    .qty-btn { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--border); background: var(--bg3); color: var(--text); cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
     .qty-btn:hover { border-color: var(--primary); color: var(--primary); }
     .qty-num { font-weight: 700; min-width: 20px; text-align: center; }
-
-    .cart-footer {
-      padding: 16px 20px 28px;
-      border-top: 1px solid var(--border);
-    }
-    .cart-total {
-      display: flex;
-      justify-content: space-between;
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
+    .cart-footer { padding: 16px 20px 28px; border-top: 1px solid var(--border); }
+    .cart-total { display: flex; justify-content: space-between; font-size: 1rem; font-weight: 700; margin-bottom: 16px; }
     .cart-total span:last-child { color: var(--primary); font-size: 1.2rem; }
-
     .cart-note-label { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px; }
-    .cart-note {
-      width: 100%;
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      padding: 10px 12px;
-      font-size: 0.85rem;
-      resize: none;
-      outline: none;
-      font-family: inherit;
-      margin-bottom: 14px;
-    }
+    .cart-note { width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; color: var(--text); padding: 10px 12px; font-size: 0.85rem; resize: none; outline: none; font-family: inherit; margin-bottom: 14px; }
     .cart-note:focus { border-color: var(--primary); }
-
-    .btn-whatsapp {
-      width: 100%;
-      background: #25D366;
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      padding: 14px;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      transition: background 0.2s;
-    }
-    .btn-whatsapp:hover { background: #1ebe5d; }
-
+    .cart-empty { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 0.9rem; }
     .order-btns { display: flex; flex-direction: column; gap: 10px; }
-    .btn-telegram {
-      width: 100%;
-      background: #229ED9;
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      padding: 14px;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      transition: background 0.2s;
-    }
-    .btn-telegram:hover { background: #1a8bbf; }
+    .btn-whatsapp { width:100%; background:#25D366; color:#fff; border:none; border-radius:12px; padding:14px; font-size:1rem; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px; transition:background 0.2s; }
+    .btn-whatsapp:hover { background:#1ebe5d; }
+    .btn-telegram { width:100%; background:#229ED9; color:#fff; border:none; border-radius:12px; padding:14px; font-size:1rem; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px; transition:background 0.2s; }
+    .btn-telegram:hover { background:#1a8bbf; }
+    .btn-add-cart { width:100%; margin-top:16px; background:var(--primary); color:#000; border:none; border-radius:10px; padding:13px; font-size:0.95rem; font-weight:700; cursor:pointer; transition:background 0.2s; }
+    .btn-add-cart:hover { background:var(--primary-dark); }
 
-    /* ── ADD TO CART button in modal ── */
-    .btn-add-cart {
-      width: 100%;
-      margin-top: 16px;
-      background: var(--primary);
-      color: #000;
-      border: none;
-      border-radius: 10px;
-      padding: 13px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .btn-add-cart:hover { background: var(--primary-dark); }
-
-    .cart-empty {
-      text-align: center;
-      padding: 40px 20px;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
+    /* ── ADMIN NAV LINK ── */
+    .nav-route { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; padding: 8px 16px; border-radius: 8px; transition: all 0.2s; cursor: pointer; background: none; border: none; }
+    .nav-route:hover { color: var(--text); background: var(--bg3); }
   </style>
 </head>
 <body>
 
-<header class="site-header">
+<!-- ══════════════════════════════════════════════════════
+     SHARED HEADER (swapped per route)
+══════════════════════════════════════════════════════ -->
+<header class="site-header" id="app-header">
   <div class="logo">
-    <div class="logo-icon">🍽</div>
+    <div class="logo-icon" id="header-icon">🍽</div>
     <div class="logo-text" id="header-name">Bella <span>Cucina</span></div>
   </div>
-  <nav class="header-nav">
-    <a href="admin.html">Owner ⚙️</a>
-  </nav>
+  <nav class="header-nav" id="header-nav"></nav>
 </header>
 
-<section class="hero">
-  <div class="hero-tag">✦ Est. 2018</div>
-  <h1 id="hero-title">Fine Dining &amp; <span>Catering</span></h1>
-  <p id="hero-desc">Authentic flavors crafted with passion.</p>
-</section>
+<!-- ══════════════════════════════════════════════════════
+     PAGE: MENU  (#menu or /)
+══════════════════════════════════════════════════════ -->
+<div class="page" id="page-menu">
+  <section class="hero">
+    <div class="hero-tag">✦ Est. 2018</div>
+    <h1 id="hero-title">Fine Dining &amp; <span>Catering</span></h1>
+    <p id="hero-desc">Authentic flavors crafted with passion.</p>
+  </section>
 
-<div class="category-bar" id="category-bar">
-  <button class="cat-btn active" data-cat="all">All</button>
+  <div class="category-bar" id="category-bar">
+    <button class="cat-btn active" data-cat="all">All</button>
+  </div>
+
+  <main class="menu-section" id="menu-container">
+    <div class="empty-state"><div class="icon">🍽</div><p>Loading menu…</p></div>
+  </main>
+
+  <footer>
+    <p id="footer-info"></p>
+    <p style="margin-top:8px">
+      <button class="nav-route" onclick="navigate('admin')">Owner login ⚙️</button>
+    </p>
+  </footer>
 </div>
 
-<main class="menu-section" id="menu-container">
-  <div class="empty-state">
-    <div class="icon">🍽</div>
-    <p>Loading menu…</p>
+<!-- ══════════════════════════════════════════════════════
+     PAGE: PIN GATE  (#admin before auth)
+══════════════════════════════════════════════════════ -->
+<div class="page" id="page-pin">
+  <div class="pin-gate">
+    <div class="pin-card">
+      <div class="pin-icon">🔐</div>
+      <h2>Owner Access</h2>
+      <p>Enter your 4-digit PIN to manage the menu</p>
+      <div class="pin-dots" id="pin-dots">
+        <div class="pin-dot" id="d0"></div>
+        <div class="pin-dot" id="d1"></div>
+        <div class="pin-dot" id="d2"></div>
+        <div class="pin-dot" id="d3"></div>
+      </div>
+      <div class="pin-pad">
+        <button class="pin-key" onclick="pinPress('1')">1</button>
+        <button class="pin-key" onclick="pinPress('2')">2</button>
+        <button class="pin-key" onclick="pinPress('3')">3</button>
+        <button class="pin-key" onclick="pinPress('4')">4</button>
+        <button class="pin-key" onclick="pinPress('5')">5</button>
+        <button class="pin-key" onclick="pinPress('6')">6</button>
+        <button class="pin-key" onclick="pinPress('7')">7</button>
+        <button class="pin-key" onclick="pinPress('8')">8</button>
+        <button class="pin-key" onclick="pinPress('9')">9</button>
+        <button class="pin-key" onclick="pinPress('0')" style="grid-column:2">0</button>
+        <button class="pin-key del" onclick="pinDel()">⌫</button>
+      </div>
+      <div class="pin-error" id="pin-error"></div>
+      <button class="nav-route" style="margin-top:16px;font-size:0.8rem" onclick="navigate('menu')">← Back to menu</button>
+    </div>
   </div>
-</main>
+</div>
 
-<!-- ITEM MODAL -->
+<!-- ══════════════════════════════════════════════════════
+     PAGE: ADMIN DASHBOARD  (#admin after auth)
+══════════════════════════════════════════════════════ -->
+<div class="page" id="page-admin">
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-label">Manage</div>
+        <button class="sidebar-btn active" data-view="dashboard" onclick="switchView('dashboard',this)"><span class="icon">📊</span> Dashboard</button>
+        <button class="sidebar-btn" data-view="add-item" onclick="switchView('add-item',this)"><span class="icon">➕</span> Add Item</button>
+        <button class="sidebar-btn" data-view="items" onclick="switchView('items',this)"><span class="icon">🍽</span> All Items</button>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Settings</div>
+        <button class="sidebar-btn" data-view="settings" onclick="switchView('settings',this)"><span class="icon">🏪</span> Restaurant Info</button>
+      </div>
+      <div class="sidebar-section" style="margin-top:auto;padding-top:16px">
+        <button class="sidebar-btn" onclick="adminLogout()"><span class="icon">🚪</span> Log out</button>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+
+      <!-- DASHBOARD -->
+      <div id="view-dashboard">
+        <div class="admin-page-title">Dashboard</div>
+        <div class="admin-page-sub">Overview of your menu</div>
+        <div class="stats-row" id="stats-row"></div>
+        <div class="items-card">
+          <div class="items-header">
+            <h2>Recent Items</h2>
+            <button class="btn btn-primary btn-sm" onclick="switchView('add-item',document.querySelector('[data-view=add-item]'))">+ Add Item</button>
+          </div>
+          <ul class="items-list" id="recent-list"></ul>
+        </div>
+      </div>
+
+      <!-- ADD / EDIT -->
+      <div id="view-add-item" style="display:none">
+        <div class="admin-page-title" id="form-title">Add New Item</div>
+        <div class="admin-page-sub">Fill in the details below</div>
+        <div class="form-card">
+          <h2>Item Details</h2>
+          <form id="item-form" novalidate>
+            <input type="hidden" id="edit-id" />
+            <div class="form-grid">
+              <div class="form-group"><label for="f-title">Food Title *</label><input type="text" id="f-title" placeholder="e.g. Truffle Risotto" required /></div>
+              <div class="form-group"><label for="f-category">Category *</label><select id="f-category" required><option value="">Select category…</option></select></div>
+              <div class="form-group"><label for="f-price">Price *</label><input type="number" id="f-price" placeholder="0.00" min="0" step="0.01" required /></div>
+              <div class="form-group"><label for="f-badge">Badge / Label</label><input type="text" id="f-badge" placeholder="e.g. Chef's Pick" /></div>
+              <div class="form-group"><label for="f-emoji">Emoji (if no photo)</label><input type="text" id="f-emoji" placeholder="🍝" maxlength="4" /></div>
+              <div class="form-group full"><label for="f-desc">Short Description *</label><textarea id="f-desc" placeholder="Brief description…" required></textarea></div>
+              <div class="form-group full"><label for="f-recipe">Recipe &amp; Ingredients</label><textarea id="f-recipe" style="min-height:140px" placeholder="Ingredients and steps…"></textarea></div>
+              <div class="form-group full">
+                <label>Photo</label>
+                <div class="upload-zone" id="upload-zone">
+                  <input type="file" id="f-image" accept="image/*" aria-label="Upload food photo" />
+                  <div class="upload-icon">📷</div>
+                  <div class="upload-text">Click or drag &amp; drop<br><small>JPG, PNG, WebP — max 5MB</small></div>
+                  <div class="upload-preview" id="upload-preview"><img id="preview-img" src="" alt="Preview" /></div>
+                </div>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary" id="submit-btn">Save Item</button>
+              <button type="button" class="btn btn-ghost" onclick="resetForm()">Clear</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- ALL ITEMS -->
+      <div id="view-items" style="display:none">
+        <div class="admin-page-title">All Items</div>
+        <div class="admin-page-sub">Manage your menu items</div>
+        <div class="items-card">
+          <div class="items-header">
+            <h2 id="items-count">Items</h2>
+            <input type="search" class="search-input" id="search-input" placeholder="Search items…" oninput="renderItemsList()" />
+          </div>
+          <ul class="items-list" id="items-list"></ul>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div id="view-settings" style="display:none">
+        <div class="admin-page-title">Restaurant Info</div>
+        <div class="admin-page-sub">Shown on the public menu page</div>
+        <div class="form-card">
+          <h2>Details</h2>
+          <form id="settings-form" novalidate>
+            <div class="form-grid">
+              <div class="form-group"><label for="s-name">Restaurant Name</label><input type="text" id="s-name" /></div>
+              <div class="form-group"><label for="s-tagline">Tagline</label><input type="text" id="s-tagline" /></div>
+              <div class="form-group"><label for="s-phone">Display Phone</label><input type="tel" id="s-phone" /></div>
+              <div class="form-group">
+                <label for="s-whatsapp">WhatsApp <span style="color:var(--text-muted);font-weight:400">(optional)</span></label>
+                <input type="tel" id="s-whatsapp" placeholder="447547226868 — digits only" />
+              </div>
+              <div class="form-group">
+                <label for="s-telegram">Telegram <span style="color:var(--text-muted);font-weight:400">(optional)</span></label>
+                <input type="text" id="s-telegram" placeholder="447547226868 or @username" />
+              </div>
+              <div class="form-group"><label for="s-email">Email</label><input type="email" id="s-email" /></div>
+              <div class="form-group"><label for="s-address">Address</label><input type="text" id="s-address" /></div>
+              <div class="form-group full"><label for="s-desc">About / Description</label><textarea id="s-desc"></textarea></div>
+              <div class="form-group full">
+                <label for="s-pin">Change PIN <span style="color:var(--text-muted);font-weight:400">(leave blank to keep current)</span></label>
+                <input type="password" id="s-pin" placeholder="4-digit PIN" maxlength="4" pattern="\d{4}" />
+              </div>
+            </div>
+            <div class="form-actions"><button type="submit" class="btn btn-primary">Save Changes</button></div>
+          </form>
+        </div>
+        <div class="form-card" style="margin-top:0">
+          <h2>📤 Publish Menu</h2>
+          <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:20px;line-height:1.6">
+            Customers load the menu from <code style="background:var(--bg3);padding:2px 6px;border-radius:4px">menu.json</code>.
+            After making changes, export and upload this file to your host.
+          </p>
+          <div style="background:var(--bg3);border-radius:10px;padding:16px;margin-bottom:20px;font-size:0.85rem;line-height:1.8;color:var(--text-muted)">
+            <strong style="color:var(--text)">Steps:</strong><br>
+            1. Edit items &amp; info above → 2. Export menu.json → 3. Upload to your host alongside index.html
+          </div>
+          <button class="btn btn-primary" onclick="exportMenuJSON()">⬇ Export menu.json</button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- ITEM DETAIL MODAL (menu page) -->
 <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
   <div class="modal-wrapper">
     <button class="modal-close" id="modal-close" aria-label="Close">✕</button>
-    <div class="modal" id="modal">
+    <div class="modal">
       <div class="modal-img" id="modal-img"></div>
       <div class="modal-body">
         <div class="modal-category" id="modal-category"></div>
@@ -287,12 +371,9 @@
     </div>
     <div class="cart-items" id="cart-items"></div>
     <div class="cart-footer">
-      <div class="cart-total">
-        <span>Total</span>
-        <span id="cart-total-price">$0.00</span>
-      </div>
+      <div class="cart-total"><span>Total</span><span id="cart-total-price">$0.00</span></div>
       <div class="cart-note-label">Special requests / table number</div>
-      <textarea class="cart-note" id="cart-note" rows="2" placeholder="e.g. Table 4, no onions, extra sauce…"></textarea>
+      <textarea class="cart-note" id="cart-note" rows="2" placeholder="e.g. Table 4, no onions…"></textarea>
       <div class="order-btns" id="order-btns"></div>
     </div>
   </div>
@@ -301,278 +382,515 @@
 <!-- CART FAB -->
 <button class="cart-fab hidden" id="cart-fab" onclick="openCart()">
   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-  Order
-  <span class="cart-count" id="cart-count">0</span>
+  Order <span class="cart-count" id="cart-count">0</span>
 </button>
 
-<footer>
-  <p id="footer-info"></p>
-  <p style="margin-top:8px">Managed with <a href="admin.html">Kiro Menu</a></p>
-</footer>
+<!-- DELETE CONFIRM -->
+<div class="modal-overlay" id="confirm-overlay">
+  <div class="modal" style="max-width:400px;padding:32px;border-radius:16px">
+    <div style="font-size:2rem;margin-bottom:12px">🗑️</div>
+    <div style="font-size:1.1rem;font-weight:700;margin-bottom:8px">Delete Item?</div>
+    <div style="color:var(--text-muted);font-size:0.9rem;margin-bottom:24px" id="confirm-msg"></div>
+    <div style="display:flex;gap:12px">
+      <button class="btn btn-danger" id="confirm-yes">Delete</button>
+      <button class="btn btn-ghost" onclick="closeConfirm()">Cancel</button>
+    </div>
+  </div>
+</div>
 
 <script src="app.js"></script>
 <script>
-  let allItems = [];
-  let restaurantInfo = {};
-  let activeCategory = 'all';
-  let cart = []; // [{id, title, price, qty}]
-  let currentModalItem = null;
+// ══════════════════════════════════════════════════════════
+//  ROUTER
+// ══════════════════════════════════════════════════════════
+const PIN_KEY    = 'menu_admin_pin';
+const AUTH_KEY   = 'menu_admin_authed';
+const DEFAULT_PIN = '1234';
 
-  // ── INIT ────────────────────────────────────────────────────
-  async function init() {
+function getPin()  { return localStorage.getItem(PIN_KEY) || DEFAULT_PIN; }
+function isAuthed(){ return sessionStorage.getItem(AUTH_KEY) === '1'; }
+function setAuthed(){ sessionStorage.setItem(AUTH_KEY, '1'); }
+function clearAuth(){ sessionStorage.removeItem(AUTH_KEY); }
+
+function navigate(route) {
+  location.hash = route;
+}
+
+function handleRoute() {
+  const hash = location.hash.replace('#', '') || 'menu';
+
+  // Hide all pages
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('cart-fab').classList.add('hidden');
+
+  if (hash === 'menu' || hash === '') {
+    document.getElementById('page-menu').classList.add('active');
+    document.getElementById('header-icon').textContent = '🍽';
+    document.getElementById('header-nav').innerHTML =
+      `<button class="nav-route" onclick="navigate('admin')">Owner ⚙️</button>`;
+    initMenuPage();
+
+  } else if (hash === 'admin') {
+    if (isAuthed()) {
+      showAdminPage();
+    } else {
+      document.getElementById('page-pin').classList.add('active');
+      document.getElementById('header-icon').textContent = '🔐';
+      document.getElementById('header-nav').innerHTML =
+        `<button class="nav-route" onclick="navigate('menu')">← Menu</button>`;
+      resetPin();
+    }
+  }
+}
+
+function showAdminPage() {
+  document.getElementById('page-admin').classList.add('active');
+  document.getElementById('header-icon').textContent = '⚙️';
+  document.getElementById('header-nav').innerHTML =
+    `<button class="nav-route" onclick="navigate('menu')">← View Menu</button>`;
+  initAdminPage();
+}
+
+function adminLogout() {
+  clearAuth();
+  navigate('menu');
+}
+
+window.addEventListener('hashchange', handleRoute);
+window.addEventListener('DOMContentLoaded', handleRoute);
+
+// ══════════════════════════════════════════════════════════
+//  PIN GATE
+// ══════════════════════════════════════════════════════════
+let pinBuffer = '';
+
+function resetPin() {
+  pinBuffer = '';
+  updatePinDots();
+  document.getElementById('pin-error').textContent = '';
+}
+
+function pinPress(digit) {
+  if (pinBuffer.length >= 4) return;
+  pinBuffer += digit;
+  updatePinDots();
+  if (pinBuffer.length === 4) checkPin();
+}
+
+function pinDel() {
+  pinBuffer = pinBuffer.slice(0, -1);
+  updatePinDots();
+  document.getElementById('pin-error').textContent = '';
+}
+
+function updatePinDots() {
+  for (let i = 0; i < 4; i++) {
+    const dot = document.getElementById(`d${i}`);
+    dot.classList.toggle('filled', i < pinBuffer.length);
+    dot.classList.remove('error');
+  }
+}
+
+function checkPin() {
+  if (pinBuffer === getPin()) {
+    setAuthed();
+    showAdminPage();
+  } else {
+    for (let i = 0; i < 4; i++) document.getElementById(`d${i}`).classList.add('error');
+    document.getElementById('pin-error').textContent = 'Incorrect PIN. Try again.';
+    setTimeout(resetPin, 900);
+  }
+}
+
+// Keyboard support on pin page
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('page-pin').classList.contains('active')) return;
+  if (/^\d$/.test(e.key)) pinPress(e.key);
+  if (e.key === 'Backspace') pinDel();
+});
+</script>
+<script>
+// ══════════════════════════════════════════════════════════
+//  MENU PAGE
+// ══════════════════════════════════════════════════════════
+let allItems = [], restaurantInfo = {}, activeCategory = 'all';
+let cart = [], currentModalItem = null;
+let menuInited = false;
+
+async function initMenuPage() {
+  if (!menuInited) {
     const data = await loadMenuFromJSON();
     restaurantInfo = data.restaurant;
     allItems = data.items;
+    menuInited = true;
 
-    document.title = `Menu — ${restaurantInfo.name}`;
-    document.getElementById('header-name').innerHTML =
-      restaurantInfo.name.replace(/(\S+)$/, '<span>$1</span>');
-    document.getElementById('hero-title').innerHTML =
-      (restaurantInfo.tagline || '').replace(/(\S+)$/, '<span>$1</span>');
-    document.getElementById('hero-desc').textContent = restaurantInfo.description || '';
-    document.getElementById('footer-info').textContent =
-      `${restaurantInfo.name} · ${restaurantInfo.phone} · ${restaurantInfo.address}`;
-
+    const info = restaurantInfo;
+    document.title = `Menu — ${info.name}`;
+    document.getElementById('header-name').innerHTML = info.name.replace(/(\S+)$/, '<span>$1</span>');
+    document.getElementById('hero-title').innerHTML = (info.tagline||'').replace(/(\S+)$/, '<span>$1</span>');
+    document.getElementById('hero-desc').textContent = info.description || '';
+    document.getElementById('footer-info').textContent = `${info.name} · ${info.phone} · ${info.address}`;
     buildCategoryBar();
     renderMenu();
     renderOrderButtons();
   }
+  updateCartFab();
+}
 
-  // ── CATEGORY BAR ────────────────────────────────────────────
-  function buildCategoryBar() {
-    const bar = document.getElementById('category-bar');
-    const cats = [...new Set(allItems.map(i => i.category))];
-    bar.innerHTML = `<button class="cat-btn active" data-cat="all">All</button>`;
-    cats.forEach(cat => {
-      const btn = document.createElement('button');
-      btn.className = 'cat-btn';
-      btn.dataset.cat = cat;
-      btn.textContent = cat;
-      bar.appendChild(btn);
-    });
-    bar.addEventListener('click', e => {
-      const btn = e.target.closest('.cat-btn');
-      if (!btn) return;
-      bar.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeCategory = btn.dataset.cat;
-      renderMenu();
-    });
-  }
+function buildCategoryBar() {
+  const bar = document.getElementById('category-bar');
+  const cats = [...new Set(allItems.map(i => i.category))];
+  bar.innerHTML = `<button class="cat-btn active" data-cat="all">All</button>`;
+  cats.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'cat-btn'; btn.dataset.cat = cat; btn.textContent = cat;
+    bar.appendChild(btn);
+  });
+  bar.addEventListener('click', e => {
+    const btn = e.target.closest('.cat-btn'); if (!btn) return;
+    bar.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active'); activeCategory = btn.dataset.cat; renderMenu();
+  });
+}
 
-  // ── MENU RENDER ─────────────────────────────────────────────
-  function renderMenu() {
-    const container = document.getElementById('menu-container');
-    const filtered = activeCategory === 'all'
-      ? allItems
-      : allItems.filter(i => i.category === activeCategory);
+function renderMenu() {
+  const container = document.getElementById('menu-container');
+  const filtered = activeCategory === 'all' ? allItems : allItems.filter(i => i.category === activeCategory);
+  if (!filtered.length) { container.innerHTML = `<div class="empty-state"><div class="icon">🍽</div><p>No items here yet.</p></div>`; return; }
+  const groups = {};
+  filtered.forEach(item => { if (!groups[item.category]) groups[item.category] = []; groups[item.category].push(item); });
+  container.innerHTML = Object.entries(groups).map(([cat, items]) => `
+    <div class="menu-group">
+      <div class="section-title">${cat}</div>
+      <div class="menu-grid">${items.map(cardHTML).join('')}</div>
+    </div>`).join('');
+  container.querySelectorAll('.menu-card').forEach(card => card.addEventListener('click', () => openModal(card.dataset.id)));
+}
 
-    if (!filtered.length) {
-      container.innerHTML = `<div class="empty-state"><div class="icon">🍽</div><p>No items here yet.</p></div>`;
-      return;
-    }
-
-    const groups = {};
-    filtered.forEach(item => {
-      if (!groups[item.category]) groups[item.category] = [];
-      groups[item.category].push(item);
-    });
-
-    container.innerHTML = Object.entries(groups).map(([cat, items]) => `
-      <div class="menu-group">
-        <div class="section-title">${cat}</div>
-        <div class="menu-grid">
-          ${items.map(item => cardHTML(item)).join('')}
-        </div>
+function cardHTML(item) {
+  const img = item.image ? `<img src="${item.image}" alt="${escHtml(item.title)}" loading="lazy" />` : (item.emoji||'🍽');
+  return `<article class="menu-card" data-id="${item.id}" tabindex="0" role="button" aria-label="View ${escHtml(item.title)}">
+    <div class="card-img">${img}</div>
+    <div class="card-body">
+      <div class="card-category">${escHtml(item.category)}</div>
+      <div class="card-title">${escHtml(item.title)}</div>
+      <div class="card-desc">${escHtml(item.description)}</div>
+      <div class="card-footer">
+        <div class="card-price">$${escHtml(item.price)}</div>
+        ${item.badge ? `<span class="card-badge">${escHtml(item.badge)}</span>` : ''}
       </div>
-    `).join('');
+    </div>
+  </article>`;
+}
 
-    container.querySelectorAll('.menu-card').forEach(card => {
-      card.addEventListener('click', () => openModal(card.dataset.id));
-    });
-  }
+// ── MODAL ──
+function openModal(id) {
+  const item = allItems.find(i => i.id === id); if (!item) return;
+  currentModalItem = item;
+  const imgEl = document.getElementById('modal-img');
+  imgEl.innerHTML = item.image ? `<img src="${item.image}" alt="${escHtml(item.title)}" />` : (item.emoji||'🍽');
+  document.getElementById('modal-category').textContent = item.category;
+  document.getElementById('modal-title').textContent = item.title;
+  document.getElementById('modal-price').textContent = `$${item.price}`;
+  document.getElementById('modal-desc').textContent = item.description;
+  const rw = document.getElementById('modal-recipe-wrap');
+  if (item.recipe) { document.getElementById('modal-recipe').textContent = item.recipe; rw.style.display='block'; }
+  else rw.style.display='none';
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = ''; currentModalItem = null;
+}
+document.getElementById('modal-close').addEventListener('click', closeModal);
+document.getElementById('modal-overlay').addEventListener('click', e => { if (e.target===document.getElementById('modal-overlay')) closeModal(); });
+document.getElementById('modal-add-cart').addEventListener('click', () => {
+  if (!currentModalItem) return;
+  addToCart(currentModalItem); closeModal(); showToast(`${currentModalItem.title} added to order`);
+});
 
-  function cardHTML(item) {
-    const imgContent = item.image
-      ? `<img src="${item.image}" alt="${escHtml(item.title)}" loading="lazy" />`
-      : (item.emoji || '🍽');
-    return `
-      <article class="menu-card" data-id="${item.id}" tabindex="0" role="button" aria-label="View ${escHtml(item.title)}">
-        <div class="card-img">${imgContent}</div>
-        <div class="card-body">
-          <div class="card-category">${escHtml(item.category)}</div>
-          <div class="card-title">${escHtml(item.title)}</div>
-          <div class="card-desc">${escHtml(item.description)}</div>
-          <div class="card-footer">
-            <div class="card-price">$${escHtml(item.price)}</div>
-            ${item.badge ? `<span class="card-badge">${escHtml(item.badge)}</span>` : ''}
-          </div>
-        </div>
-      </article>`;
-  }
-
-  // ── MODAL ───────────────────────────────────────────────────
-  function openModal(id) {
-    const item = allItems.find(i => i.id === id);
-    if (!item) return;
-    currentModalItem = item;
-
-    const imgEl = document.getElementById('modal-img');
-    imgEl.innerHTML = item.image
-      ? `<img src="${item.image}" alt="${escHtml(item.title)}" />`
-      : (item.emoji || '🍽');
-
-    document.getElementById('modal-category').textContent = item.category;
-    document.getElementById('modal-title').textContent = item.title;
-    document.getElementById('modal-price').textContent = `$${item.price}`;
-    document.getElementById('modal-desc').textContent = item.description;
-
-    const recipeWrap = document.getElementById('modal-recipe-wrap');
-    if (item.recipe) {
-      document.getElementById('modal-recipe').textContent = item.recipe;
-      recipeWrap.style.display = 'block';
-    } else {
-      recipeWrap.style.display = 'none';
-    }
-
-    document.getElementById('modal-overlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeModal() {
-    document.getElementById('modal-overlay').classList.remove('open');
-    document.body.style.overflow = '';
-    currentModalItem = null;
-  }
-
-  document.getElementById('modal-close').addEventListener('click', closeModal);
-  document.getElementById('modal-overlay').addEventListener('click', e => {
-    if (e.target === document.getElementById('modal-overlay')) closeModal();
-  });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeCart(); } });
-
-  document.getElementById('modal-add-cart').addEventListener('click', () => {
-    if (!currentModalItem) return;
-    addToCart(currentModalItem);
-    closeModal();
-    showToast(`${currentModalItem.title} added to order`);
-  });
-
-  // ── CART ────────────────────────────────────────────────────
-  function addToCart(item) {
-    const existing = cart.find(c => c.id === item.id);
-    if (existing) {
-      existing.qty++;
-    } else {
-      cart.push({ id: item.id, title: item.title, price: parseFloat(item.price), qty: 1 });
-    }
-    updateCartUI();
-  }
-
-  function updateCartUI() {
-    const total = cart.reduce((s, c) => s + c.price * c.qty, 0);
-    const count = cart.reduce((s, c) => s + c.qty, 0);
-
-    document.getElementById('cart-count').textContent = count;
-    document.getElementById('cart-fab').classList.toggle('hidden', count === 0);
-    document.getElementById('cart-total-price').textContent = `$${total.toFixed(2)}`;
-
-    const itemsEl = document.getElementById('cart-items');
-    if (!cart.length) {
-      itemsEl.innerHTML = `<div class="cart-empty">Your order is empty.<br>Tap any item to add it.</div>`;
-      return;
-    }
-
-    itemsEl.innerHTML = cart.map(c => `
-      <div class="cart-item">
-        <div class="cart-item-name">${escHtml(c.title)}</div>
-        <div class="qty-controls">
-          <button class="qty-btn" onclick="changeQty('${c.id}', -1)">−</button>
-          <span class="qty-num">${c.qty}</span>
-          <button class="qty-btn" onclick="changeQty('${c.id}', 1)">+</button>
-        </div>
-        <div class="cart-item-price">$${(c.price * c.qty).toFixed(2)}</div>
+// ── CART ──
+function addToCart(item) {
+  const ex = cart.find(c => c.id === item.id);
+  if (ex) ex.qty++; else cart.push({id:item.id, title:item.title, price:parseFloat(item.price), qty:1});
+  updateCartUI();
+}
+function updateCartFab() {
+  const count = cart.reduce((s,c)=>s+c.qty,0);
+  document.getElementById('cart-fab').classList.toggle('hidden', count===0);
+}
+function updateCartUI() {
+  const total = cart.reduce((s,c)=>s+c.price*c.qty,0);
+  const count = cart.reduce((s,c)=>s+c.qty,0);
+  document.getElementById('cart-count').textContent = count;
+  document.getElementById('cart-fab').classList.toggle('hidden', count===0);
+  document.getElementById('cart-total-price').textContent = `$${total.toFixed(2)}`;
+  const el = document.getElementById('cart-items');
+  if (!cart.length) { el.innerHTML=`<div class="cart-empty">Your order is empty.<br>Tap any item to add it.</div>`; return; }
+  el.innerHTML = cart.map(c=>`
+    <div class="cart-item">
+      <div class="cart-item-name">${escHtml(c.title)}</div>
+      <div class="qty-controls">
+        <button class="qty-btn" onclick="changeQty('${c.id}',-1)">−</button>
+        <span class="qty-num">${c.qty}</span>
+        <button class="qty-btn" onclick="changeQty('${c.id}',1)">+</button>
       </div>
-    `).join('');
-  }
+      <div class="cart-item-price">$${(c.price*c.qty).toFixed(2)}</div>
+    </div>`).join('');
+}
+function changeQty(id,delta) {
+  const idx=cart.findIndex(c=>c.id===id); if(idx===-1)return;
+  cart[idx].qty+=delta; if(cart[idx].qty<=0) cart.splice(idx,1); updateCartUI();
+}
+function clearCart() { cart=[]; updateCartUI(); }
+function openCart() { document.getElementById('cart-overlay').classList.add('open'); document.body.style.overflow='hidden'; updateCartUI(); }
+function closeCart() { document.getElementById('cart-overlay').classList.remove('open'); document.body.style.overflow=''; }
+document.getElementById('cart-overlay').addEventListener('click', e=>{ if(e.target===document.getElementById('cart-overlay')) closeCart(); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape'){closeModal();closeCart();} });
 
-  function changeQty(id, delta) {
-    const idx = cart.findIndex(c => c.id === id);
-    if (idx === -1) return;
-    cart[idx].qty += delta;
-    if (cart[idx].qty <= 0) cart.splice(idx, 1);
-    updateCartUI();
-  }
+// ── ORDER BUTTONS ──
+const WA_ICON = `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`;
+const TG_ICON = `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>`;
 
-  function clearCart() {
-    cart = [];
-    updateCartUI();
-  }
-
-  function openCart() {
-    document.getElementById('cart-overlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
-    updateCartUI();
-  }
-
-  function closeCart() {
-    document.getElementById('cart-overlay').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  document.getElementById('cart-overlay').addEventListener('click', e => {
-    if (e.target === document.getElementById('cart-overlay')) closeCart();
+function buildOrderMessage() {
+  const note = document.getElementById('cart-note').value.trim();
+  const total = cart.reduce((s,c)=>s+c.price*c.qty,0);
+  let msg = `🍽 *New Order — ${restaurantInfo.name}*\n\n`;
+  cart.forEach(c=>{ msg+=`• ${c.title} x${c.qty} — $${(c.price*c.qty).toFixed(2)}\n`; });
+  msg += `\n*Total: $${total.toFixed(2)}*`;
+  if (note) msg += `\n\n📝 Note: ${note}`;
+  return msg;
+}
+function renderOrderButtons() {
+  const container = document.getElementById('order-btns'); if (!container) return;
+  const wa = (restaurantInfo.whatsapp||'').replace(/\D/g,'');
+  const tg = (restaurantInfo.telegram||'').trim();
+  let html = '';
+  if (wa) html += `<button class="btn-whatsapp" id="send-whatsapp">${WA_ICON} Order via WhatsApp</button>`;
+  if (tg) html += `<button class="btn-telegram" id="send-telegram">${TG_ICON} Order via Telegram</button>`;
+  if (!wa&&!tg) html = `<p style="color:var(--text-muted);font-size:0.85rem;text-align:center">No ordering channel configured.</p>`;
+  container.innerHTML = html;
+  if (wa) document.getElementById('send-whatsapp').addEventListener('click',()=>{
+    if(!cart.length){showToast('Add items first','error');return;}
+    window.open(`https://wa.me/${wa}?text=${encodeURIComponent(buildOrderMessage())}`, '_blank');
   });
+  if (tg) document.getElementById('send-telegram').addEventListener('click',()=>{
+    if(!cart.length){showToast('Add items first','error');return;}
+    const target=/^\d+$/.test(tg)?tg:tg.replace(/^@/,'');
+    window.open(`https://t.me/${target}?text=${encodeURIComponent(buildOrderMessage())}`, '_blank');
+  });
+}
+</script>
+<script>
+// ══════════════════════════════════════════════════════════
+//  ADMIN PAGE
+// ══════════════════════════════════════════════════════════
+let adminItems = [], currentImageData = '', pendingDeleteId = null;
+let adminInited = false;
 
-  // ── WHATSAPP / TELEGRAM ORDER ───────────────────────────────
-  const WA_ICON = `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`;
-  const TG_ICON = `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>`;
-
-  function buildOrderMessage() {
-    const note = document.getElementById('cart-note').value.trim();
-    const total = cart.reduce((s, c) => s + c.price * c.qty, 0);
-    let msg = `🍽 *New Order — ${restaurantInfo.name}*\n\n`;
-    cart.forEach(c => { msg += `• ${c.title} x${c.qty} — $${(c.price * c.qty).toFixed(2)}\n`; });
-    msg += `\n*Total: $${total.toFixed(2)}*`;
-    if (note) msg += `\n\n📝 Note: ${note}`;
-    return msg;
+function initAdminPage() {
+  if (!adminInited) {
+    adminItems = getItems();
+    populateCategorySelect();
+    setupImageUpload();
+    setupForms();
+    adminInited = true;
   }
+  loadSettings();
+  renderDashboard();
+  switchView('dashboard', document.querySelector('[data-view=dashboard]'));
+}
 
-  function renderOrderButtons() {
-    const container = document.getElementById('order-btns');
-    if (!container) return;
-    const wa = (restaurantInfo.whatsapp || '').replace(/\D/g, '');
-    const tg = (restaurantInfo.telegram || '').trim();
-    let html = '';
-    if (wa) html += `<button class="btn-whatsapp" id="send-whatsapp">${WA_ICON} Order via WhatsApp</button>`;
-    if (tg) html += `<button class="btn-telegram" id="send-telegram">${TG_ICON} Order via Telegram</button>`;
-    if (!wa && !tg) html = `<p style="color:var(--text-muted);font-size:0.85rem;text-align:center">No ordering channel configured.</p>`;
-    container.innerHTML = html;
+function populateCategorySelect() {
+  const sel = document.getElementById('f-category');
+  sel.innerHTML = '<option value="">Select category…</option>';
+  const all = [...new Set([...CATEGORIES, ...adminItems.map(i=>i.category)])];
+  all.forEach(cat => { const o=document.createElement('option'); o.value=cat; o.textContent=cat; sel.appendChild(o); });
+}
 
-    if (wa) {
-      document.getElementById('send-whatsapp').addEventListener('click', () => {
-        if (!cart.length) { showToast('Add items to your order first', 'error'); return; }
-        const url = `https://wa.me/${wa}?text=${encodeURIComponent(buildOrderMessage())}`;
-        window.open(url, '_blank');
-      });
-    }
-    if (tg) {
-      document.getElementById('send-telegram').addEventListener('click', () => {
-        if (!cart.length) { showToast('Add items to your order first', 'error'); return; }
-        // tg can be a phone number or @username
-        const target = /^\d+$/.test(tg) ? tg : tg.replace(/^@/, '');
-        const url = `https://t.me/${target}?text=${encodeURIComponent(buildOrderMessage())}`;
-        window.open(url, '_blank');
-      });
-    }
+function switchView(view, btn) {
+  document.querySelectorAll('[id^="view-"]').forEach(el=>el.style.display='none');
+  document.getElementById(`view-${view}`).style.display='block';
+  document.querySelectorAll('.sidebar-btn').forEach(b=>b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  if (view==='items') renderItemsList();
+  if (view==='dashboard') renderDashboard();
+}
+
+function renderDashboard() {
+  const cats=[...new Set(adminItems.map(i=>i.category))];
+  document.getElementById('stats-row').innerHTML=`
+    <div class="stat-card"><div class="stat-value">${adminItems.length}</div><div class="stat-label">Total Items</div></div>
+    <div class="stat-card"><div class="stat-value">${cats.length}</div><div class="stat-label">Categories</div></div>
+    <div class="stat-card"><div class="stat-value">${adminItems.filter(i=>i.badge).length}</div><div class="stat-label">Featured</div></div>
+    <div class="stat-card"><div class="stat-value">${adminItems.filter(i=>i.image).length}</div><div class="stat-label">With Photos</div></div>`;
+  const recent=[...adminItems].slice(-5).reverse();
+  document.getElementById('recent-list').innerHTML=recent.map(itemRowHTML).join('')||'<li style="padding:24px;text-align:center;color:var(--text-muted)">No items yet</li>';
+  attachRowListeners(document.getElementById('recent-list'));
+}
+
+function renderItemsList() {
+  const q=(document.getElementById('search-input')?.value||'').toLowerCase();
+  const filtered=q?adminItems.filter(i=>i.title.toLowerCase().includes(q)||i.category.toLowerCase().includes(q)):adminItems;
+  document.getElementById('items-count').textContent=`${filtered.length} Item${filtered.length!==1?'s':''}`;
+  const list=document.getElementById('items-list');
+  list.innerHTML=filtered.map(itemRowHTML).join('')||'<li style="padding:40px;text-align:center;color:var(--text-muted)">No items found</li>';
+  attachRowListeners(list);
+}
+
+function itemRowHTML(item) {
+  const thumb=item.image?`<div class="item-thumb"><img src="${item.image}" alt="${escHtml(item.title)}" /></div>`:`<div class="item-thumb">${item.emoji||'🍽'}</div>`;
+  return `<li class="item-row" data-id="${item.id}">${thumb}
+    <div class="item-info"><div class="item-name">${escHtml(item.title)}</div><div class="item-meta">${escHtml(item.category)}${item.badge?` · ${escHtml(item.badge)}`:''}</div></div>
+    <div class="item-price">$${escHtml(item.price)}</div>
+    <div class="item-actions">
+      <button class="btn btn-ghost btn-sm edit-btn" data-id="${item.id}">✏️ Edit</button>
+      <button class="btn btn-danger btn-sm delete-btn" data-id="${item.id}">🗑</button>
+    </div></li>`;
+}
+
+function attachRowListeners(container) {
+  container.querySelectorAll('.edit-btn').forEach(btn=>btn.addEventListener('click',()=>editItem(btn.dataset.id)));
+  container.querySelectorAll('.delete-btn').forEach(btn=>btn.addEventListener('click',()=>confirmDelete(btn.dataset.id)));
+}
+
+function setupForms() {
+  document.getElementById('item-form').addEventListener('submit',e=>{e.preventDefault();saveItem();});
+  document.getElementById('settings-form').addEventListener('submit',e=>{e.preventDefault();saveSettings();});
+}
+
+function saveItem() {
+  const id=document.getElementById('edit-id').value;
+  const title=document.getElementById('f-title').value.trim();
+  const category=document.getElementById('f-category').value;
+  const price=parseFloat(document.getElementById('f-price').value).toFixed(2);
+  const desc=document.getElementById('f-desc').value.trim();
+  if(!title||!category||!price||!desc){showToast('Fill in all required fields','error');return;}
+  const item={id:id||generateId(),title,category,price,description:desc,
+    recipe:document.getElementById('f-recipe').value.trim(),
+    badge:document.getElementById('f-badge').value.trim(),
+    emoji:document.getElementById('f-emoji').value.trim()||'🍽',
+    image:currentImageData};
+  if(id){const idx=adminItems.findIndex(i=>i.id===id);if(idx!==-1)adminItems[idx]=item;showToast('Item updated');}
+  else{adminItems.push(item);showToast('Item added to menu');}
+  saveItems(adminItems); resetForm();
+  switchView('items',document.querySelector('[data-view=items]'));
+  renderItemsList();
+}
+
+function editItem(id) {
+  const item=adminItems.find(i=>i.id===id); if(!item)return;
+  document.getElementById('edit-id').value=item.id;
+  document.getElementById('f-title').value=item.title;
+  document.getElementById('f-category').value=item.category;
+  document.getElementById('f-price').value=item.price;
+  document.getElementById('f-desc').value=item.description;
+  document.getElementById('f-recipe').value=item.recipe||'';
+  document.getElementById('f-badge').value=item.badge||'';
+  document.getElementById('f-emoji').value=item.emoji||'';
+  currentImageData=item.image||'';
+  if(item.image){document.getElementById('preview-img').src=item.image;document.getElementById('upload-preview').style.display='block';}
+  else document.getElementById('upload-preview').style.display='none';
+  document.getElementById('form-title').textContent='Edit Item';
+  document.getElementById('submit-btn').textContent='Update Item';
+  switchView('add-item',document.querySelector('[data-view=add-item]'));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function resetForm() {
+  document.getElementById('item-form').reset();
+  document.getElementById('edit-id').value='';
+  document.getElementById('form-title').textContent='Add New Item';
+  document.getElementById('submit-btn').textContent='Save Item';
+  document.getElementById('upload-preview').style.display='none';
+  currentImageData='';
+}
+
+function setupImageUpload() {
+  const zone=document.getElementById('upload-zone');
+  const input=document.getElementById('f-image');
+  input.addEventListener('change',async()=>{
+    const file=input.files[0]; if(!file)return;
+    if(file.size>5*1024*1024){showToast('Image must be under 5MB','error');return;}
+    currentImageData=await readFileAsDataURL(file);
+    document.getElementById('preview-img').src=currentImageData;
+    document.getElementById('upload-preview').style.display='block';
+  });
+  zone.addEventListener('dragover',e=>{e.preventDefault();zone.classList.add('drag-over');});
+  zone.addEventListener('dragleave',()=>zone.classList.remove('drag-over'));
+  zone.addEventListener('drop',async e=>{
+    e.preventDefault();zone.classList.remove('drag-over');
+    const file=e.dataTransfer.files[0];
+    if(!file||!file.type.startsWith('image/'))return;
+    if(file.size>5*1024*1024){showToast('Image must be under 5MB','error');return;}
+    currentImageData=await readFileAsDataURL(file);
+    document.getElementById('preview-img').src=currentImageData;
+    document.getElementById('upload-preview').style.display='block';
+  });
+}
+
+function confirmDelete(id) {
+  const item=adminItems.find(i=>i.id===id); if(!item)return;
+  pendingDeleteId=id;
+  document.getElementById('confirm-msg').textContent=`Delete "${item.title}"? This cannot be undone.`;
+  document.getElementById('confirm-overlay').classList.add('open');
+}
+function closeConfirm() { document.getElementById('confirm-overlay').classList.remove('open'); pendingDeleteId=null; }
+document.getElementById('confirm-yes').addEventListener('click',()=>{
+  if(!pendingDeleteId)return;
+  adminItems=adminItems.filter(i=>i.id!==pendingDeleteId);
+  saveItems(adminItems); closeConfirm(); showToast('Item deleted');
+  renderItemsList(); renderDashboard();
+});
+document.getElementById('confirm-overlay').addEventListener('click',e=>{if(e.target===document.getElementById('confirm-overlay'))closeConfirm();});
+
+function loadSettings() {
+  const info=getRestaurantInfo();
+  document.getElementById('s-name').value=info.name||'';
+  document.getElementById('s-tagline').value=info.tagline||'';
+  document.getElementById('s-phone').value=info.phone||'';
+  document.getElementById('s-whatsapp').value=info.whatsapp||'';
+  document.getElementById('s-telegram').value=info.telegram||'';
+  document.getElementById('s-email').value=info.email||'';
+  document.getElementById('s-address').value=info.address||'';
+  document.getElementById('s-desc').value=info.description||'';
+  document.getElementById('s-pin').value='';
+}
+
+function saveSettings() {
+  const newPin=document.getElementById('s-pin').value.trim();
+  if(newPin){
+    if(!/^\d{4}$/.test(newPin)){showToast('PIN must be exactly 4 digits','error');return;}
+    localStorage.setItem(PIN_KEY,newPin);
   }
+  const info={
+    name:document.getElementById('s-name').value.trim(),
+    tagline:document.getElementById('s-tagline').value.trim(),
+    phone:document.getElementById('s-phone').value.trim(),
+    whatsapp:document.getElementById('s-whatsapp').value.replace(/\D/g,''),
+    telegram:document.getElementById('s-telegram').value.trim(),
+    email:document.getElementById('s-email').value.trim(),
+    address:document.getElementById('s-address').value.trim(),
+    description:document.getElementById('s-desc').value.trim(),
+  };
+  saveRestaurantInfo(info);
+  showToast('Settings saved');
+}
 
-  // ── UTILS ────────────────────────────────────────────────────
-  function escHtml(str) {
-    return String(str ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
+function exportMenuJSON() {
+  const data={restaurant:getRestaurantInfo(),items:getItems()};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download='menu.json'; a.click();
+  URL.revokeObjectURL(url);
+  showToast('menu.json downloaded — upload it to your host');
+}
 
-  init();
+// ── SHARED UTILS ──
+function escHtml(str) {
+  return String(str??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
 </script>
 </body>
 </html>
