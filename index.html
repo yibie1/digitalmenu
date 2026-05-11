@@ -128,8 +128,10 @@
     .btn-whatsapp:hover { background:#1ebe5d; }
     .btn-telegram { width:100%; background:#229ED9; color:#fff; border:none; border-radius:12px; padding:14px; font-size:1rem; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px; transition:background 0.2s; }
     .btn-telegram:hover { background:#1a8bbf; }
-    .btn-add-cart { width:100%; margin-top:16px; background:var(--primary); color:#000; border:none; border-radius:10px; padding:13px; font-size:0.95rem; font-weight:700; cursor:pointer; transition:background 0.2s; }
+    .btn-add-cart { width:100%; margin-top:16px; background:var(--primary); color:#fff; border:none; border-radius:10px; padding:14px; font-size:0.95rem; font-weight:700; cursor:pointer; transition:background 0.2s; }
     .btn-add-cart:hover { background:var(--primary-dark); }
+    .btn-back-menu { width:100%; margin-top:10px; background:transparent; color:var(--text-muted); border:1.5px solid var(--border); border-radius:10px; padding:12px; font-size:0.9rem; font-weight:600; cursor:pointer; transition:all 0.2s; }
+    .btn-back-menu:hover { border-color:var(--primary); color:var(--primary); }
 
     /* ── ADMIN NAV LINK ── */
     .nav-route { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.9rem; padding: 8px 16px; border-radius: 8px; transition: all 0.2s; cursor: pointer; background: none; border: none; font-family: inherit; }
@@ -385,6 +387,7 @@
           <div class="modal-recipe" id="modal-recipe"></div>
         </div>
         <button class="btn-add-cart" id="modal-add-cart">+ Add to Order</button>
+        <button class="btn-back-menu" onclick="closeModal()" aria-label="Back to menu">← Back to Menu</button>
       </div>
     </div>
   </div>
@@ -806,6 +809,7 @@ function saveItem() {
   if(id){const idx=adminItems.findIndex(i=>i.id===id);if(idx!==-1)adminItems[idx]=item;showToast('Item updated');}
   else{adminItems.push(item);showToast('Item added to menu');}
   saveItems(adminItems); resetForm();
+  autoPublish();
   switchView('items',document.querySelector('[data-view=items]'));
   renderItemsList();
 }
@@ -872,6 +876,7 @@ document.getElementById('confirm-yes').addEventListener('click',()=>{
   if(!pendingDeleteId)return;
   adminItems=adminItems.filter(i=>i.id!==pendingDeleteId);
   saveItems(adminItems); closeConfirm(); showToast('Item deleted');
+  autoPublish();
   renderItemsList(); renderDashboard();
 });
 document.getElementById('confirm-overlay').addEventListener('click',e=>{if(e.target===document.getElementById('confirm-overlay'))closeConfirm();});
@@ -907,6 +912,7 @@ function saveSettings() {
   };
   saveRestaurantInfo(info);
   showToast('Settings saved');
+  autoPublish();
 }
 
 // ── GITHUB CONFIG ────────────────────────────────────────────
@@ -916,58 +922,46 @@ function loadGithubConfig() {
   try { return JSON.parse(localStorage.getItem(GH_CONFIG_KEY)) || {}; } catch { return {}; }
 }
 
-function saveGithubConfig() {
-  const cfg = {
-    owner: document.getElementById('gh-owner').value.trim(),
-    repo:  document.getElementById('gh-repo').value.trim(),
-    token: document.getElementById('gh-token').value.trim(),
-  };
-  if (!cfg.owner || !cfg.repo || !cfg.token) {
-    showToast('Fill in all three GitHub fields', 'error'); return;
-  }
-  localStorage.setItem(GH_CONFIG_KEY, JSON.stringify(cfg));
-  showToast('GitHub config saved');
-}
-
-function populateGithubFields() {
+// Auto-publish silently after every change (if GitHub is configured)
+async function autoPublish() {
   const cfg = loadGithubConfig();
-  if (cfg.owner) document.getElementById('gh-owner').value = cfg.owner;
-  if (cfg.repo)  document.getElementById('gh-repo').value  = cfg.repo;
-  if (cfg.token) document.getElementById('gh-token').value = cfg.token;
+  if (!cfg.owner || !cfg.repo || !cfg.token) return; // not configured, skip silently
+  const status = document.getElementById('publish-status');
+  if (status) status.textContent = '⏳ Syncing…';
+  await publishToGitHub(true); // silent mode
 }
 
-async function publishToGitHub() {
-  // Save any unsaved field values first
-  const owner = document.getElementById('gh-owner').value.trim();
-  const repo  = document.getElementById('gh-repo').value.trim();
-  const token = document.getElementById('gh-token').value.trim();
+async function publishToGitHub(silent = false) {
+  const owner = document.getElementById('gh-owner')?.value.trim() || loadGithubConfig().owner;
+  const repo  = document.getElementById('gh-repo')?.value.trim()  || loadGithubConfig().repo;
+  const token = document.getElementById('gh-token')?.value.trim() || loadGithubConfig().token;
 
   if (!owner || !repo || !token) {
-    showToast('Enter your GitHub username, repo, and token first', 'error'); return;
+    if (!silent) showToast('Enter your GitHub username, repo, and token first', 'error');
+    return;
   }
 
   const btn    = document.getElementById('publish-btn');
   const status = document.getElementById('publish-status');
-  btn.disabled = true;
-  btn.textContent = '⏳ Publishing…';
-  status.textContent = '';
+  if (btn && !silent) { btn.disabled = true; btn.textContent = '⏳ Publishing…'; }
 
-  const content = JSON.stringify({ restaurant: getRestaurantInfo(), items: getItems() }, null, 2);
-  const encoded = btoa(unescape(encodeURIComponent(content))); // base64, handles unicode
+  // Embed a timestamp so every version of menu.json is unique — defeats CDN cache
+  const data = {
+    _updated: new Date().toISOString(),
+    restaurant: getRestaurantInfo(),
+    items: getItems()
+  };
+  const content = JSON.stringify(data, null, 2);
+  const encoded = btoa(unescape(encodeURIComponent(content)));
   const apiUrl  = `https://api.github.com/repos/${owner}/${repo}/contents/menu.json`;
 
   try {
-    // Get current file SHA (needed to update an existing file)
     let sha = null;
     const getRes = await fetch(apiUrl, {
       headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' }
     });
-    if (getRes.ok) {
-      const fileData = await getRes.json();
-      sha = fileData.sha;
-    }
+    if (getRes.ok) sha = (await getRes.json()).sha;
 
-    // Commit the updated menu.json
     const putRes = await fetch(apiUrl, {
       method: 'PUT',
       headers: {
@@ -976,28 +970,27 @@ async function publishToGitHub() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        message: `Update menu — ${new Date().toLocaleString()}`,
+        message: `Menu update — ${new Date().toLocaleString()}`,
         content: encoded,
         ...(sha ? { sha } : {}),
       }),
     });
 
     if (putRes.ok) {
-      showToast('✅ Menu published to GitHub!');
-      status.textContent = `Last published: ${new Date().toLocaleTimeString()}`;
+      if (!silent) showToast('✅ Menu published to GitHub!');
+      if (status) status.textContent = `Last synced: ${new Date().toLocaleTimeString()}`;
       localStorage.setItem(GH_CONFIG_KEY, JSON.stringify({ owner, repo, token }));
     } else {
       const err = await putRes.json();
-      showToast(`GitHub error: ${err.message}`, 'error');
-      status.textContent = `Error: ${err.message}`;
+      if (!silent) showToast(`GitHub error: ${err.message}`, 'error');
+      if (status) status.textContent = `Error: ${err.message}`;
     }
   } catch (e) {
-    showToast('Network error — check your connection', 'error');
-    status.textContent = 'Network error';
+    if (!silent) showToast('Network error — check your connection', 'error');
+    if (status) status.textContent = 'Network error';
   }
 
-  btn.disabled = false;
-  btn.textContent = '🚀 Publish Now';
+  if (btn && !silent) { btn.disabled = false; btn.textContent = '🚀 Publish Now'; }
 }
 
 // ── SHARED UTILS ──

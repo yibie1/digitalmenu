@@ -163,9 +163,12 @@ async function loadMenuFromJSON() {
       return { restaurant: JSON.parse(localInfo), items: JSON.parse(localItems) };
     } catch { /* fall through */ }
   }
-  // Otherwise fetch the published menu.json
+  // Otherwise fetch the published menu.json — force bypass CDN cache
   try {
-    const response = await fetch('menu.json?t=' + Date.now()); // bust cache
+    const response = await fetch('menu.json?t=' + Date.now(), {
+      cache: 'no-store',
+      headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate', 'Pragma': 'no-cache' }
+    });
     if (!response.ok) throw new Error('menu.json not found');
     return await response.json();
   } catch {
