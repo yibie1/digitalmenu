@@ -5,18 +5,20 @@
 }
 
 :root {
-  --primary: #c8a96e;
-  --primary-dark: #a8843e;
-  --bg: #0f0e0c;
-  --bg2: #1a1814;
-  --bg3: #242220;
-  --text: #f5f0e8;
-  --text-muted: #9a9080;
-  --border: #2e2b26;
-  --danger: #e05555;
-  --success: #5cb85c;
+  --primary: #c0392b;
+  --primary-dark: #96281b;
+  --primary-light: #e74c3c;
+  --accent: #e8c97a;
+  --bg: #ffffff;
+  --bg2: #fdf6f6;
+  --bg3: #f5e9e9;
+  --text: #1a0a0a;
+  --text-muted: #7a5a5a;
+  --border: #e8d0d0;
+  --danger: #c0392b;
+  --success: #27ae60;
   --radius: 12px;
-  --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  --shadow: 0 4px 24px rgba(192,57,43,0.12);
 }
 
 body {
@@ -28,8 +30,8 @@ body {
 
 /* ── HEADER ── */
 .site-header {
-  background: var(--bg2);
-  border-bottom: 1px solid var(--border);
+  background: var(--primary);
+  border-bottom: none;
   padding: 0 2rem;
   display: flex;
   align-items: center;
@@ -38,7 +40,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 12px rgba(192,57,43,0.25);
 }
 
 .logo {
@@ -50,7 +52,7 @@ body {
 .logo-icon {
   width: 38px;
   height: 38px;
-  background: var(--primary);
+  background: rgba(255,255,255,0.2);
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -59,17 +61,18 @@ body {
 }
 
 .logo-text {
-  font-size: 1.3rem;
+  font-size: 1.15rem;
   font-weight: 700;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
+  color: #fff;
 }
 
 .logo-text span {
-  color: var(--primary);
+  color: var(--accent);
 }
 
 .header-nav a {
-  color: var(--text-muted);
+  color: rgba(255,255,255,0.85);
   text-decoration: none;
   font-size: 0.9rem;
   padding: 8px 16px;
@@ -78,22 +81,34 @@ body {
 }
 
 .header-nav a:hover {
-  color: var(--text);
-  background: var(--bg3);
+  color: #fff;
+  background: rgba(255,255,255,0.15);
 }
 
 /* ── HERO ── */
 .hero {
   text-align: center;
   padding: 80px 2rem 60px;
-  background: radial-gradient(ellipse at top, #2a2318 0%, var(--bg) 70%);
+  background: linear-gradient(160deg, #c0392b 0%, #96281b 45%, #fdf6f6 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '✦';
+  position: absolute;
+  font-size: 18rem;
+  opacity: 0.04;
+  top: -40px;
+  right: -40px;
+  pointer-events: none;
 }
 
 .hero-tag {
   display: inline-block;
-  background: rgba(200,169,110,0.15);
-  color: var(--primary);
-  border: 1px solid rgba(200,169,110,0.3);
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.35);
   padding: 4px 14px;
   border-radius: 20px;
   font-size: 0.8rem;
@@ -107,14 +122,15 @@ body {
   font-weight: 800;
   line-height: 1.15;
   margin-bottom: 16px;
+  color: #fff;
 }
 
 .hero h1 span {
-  color: var(--primary);
+  color: var(--accent);
 }
 
 .hero p {
-  color: var(--text-muted);
+  color: rgba(255,255,255,0.85);
   font-size: 1.1rem;
   max-width: 500px;
   margin: 0 auto 32px;
@@ -126,12 +142,14 @@ body {
   gap: 10px;
   justify-content: center;
   flex-wrap: wrap;
-  padding: 0 2rem 48px;
+  padding: 28px 2rem 36px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
 }
 
 .cat-btn {
-  background: var(--bg3);
-  border: 1px solid var(--border);
+  background: #fff;
+  border: 1.5px solid var(--border);
   color: var(--text-muted);
   padding: 8px 20px;
   border-radius: 30px;
@@ -144,13 +162,13 @@ body {
 .cat-btn.active {
   background: var(--primary);
   border-color: var(--primary);
-  color: #000;
+  color: #fff;
   font-weight: 600;
 }
 
 /* ── MENU GRID ── */
 .menu-section {
-  padding: 0 2rem 80px;
+  padding: 40px 2rem 80px;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -160,10 +178,11 @@ body {
   font-weight: 700;
   margin-bottom: 24px;
   padding-bottom: 12px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 2px solid var(--border);
   display: flex;
   align-items: center;
   gap: 10px;
+  color: var(--primary);
 }
 
 .section-title::before {
@@ -182,7 +201,7 @@ body {
 }
 
 .menu-card {
-  background: var(--bg2);
+  background: #fff;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
@@ -193,7 +212,7 @@ body {
 .menu-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow);
-  border-color: rgba(200,169,110,0.3);
+  border-color: var(--primary);
 }
 
 .card-img {
@@ -223,12 +242,14 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.8px;
   margin-bottom: 6px;
+  font-weight: 600;
 }
 
 .card-title {
   font-size: 1.1rem;
   font-weight: 700;
   margin-bottom: 8px;
+  color: var(--text);
 }
 
 .card-desc {
@@ -259,16 +280,17 @@ body {
   font-size: 0.75rem;
   padding: 3px 10px;
   border-radius: 20px;
-  background: rgba(200,169,110,0.15);
+  background: rgba(192,57,43,0.1);
   color: var(--primary);
-  border: 1px solid rgba(200,169,110,0.2);
+  border: 1px solid rgba(192,57,43,0.2);
+  font-weight: 600;
 }
 
 /* ── MODAL (recipe view) ── */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.75);
+  background: rgba(26,10,10,0.7);
   z-index: 200;
   display: flex;
   align-items: center;
@@ -285,7 +307,7 @@ body {
 }
 
 .modal {
-  background: var(--bg2);
+  background: #fff;
   border: 1px solid var(--border);
   border-radius: 16px;
   max-width: 560px;
@@ -329,12 +351,14 @@ body {
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 8px;
+  font-weight: 600;
 }
 
 .modal-title {
   font-size: 1.6rem;
   font-weight: 800;
   margin-bottom: 12px;
+  color: var(--text);
 }
 
 .modal-price {
@@ -356,6 +380,7 @@ body {
   letter-spacing: 1px;
   color: var(--text-muted);
   margin-bottom: 10px;
+  font-weight: 600;
 }
 
 .modal-recipe {
@@ -366,13 +391,14 @@ body {
   line-height: 1.7;
   color: var(--text);
   white-space: pre-wrap;
+  border-left: 3px solid var(--primary);
 }
 
 .modal-close {
   position: absolute;
   top: 16px;
   right: 16px;
-  background: rgba(0,0,0,0.5);
+  background: rgba(192,57,43,0.85);
   border: none;
   color: #fff;
   width: 36px;
@@ -405,13 +431,13 @@ body {
 footer {
   text-align: center;
   padding: 32px;
-  border-top: 1px solid var(--border);
-  color: var(--text-muted);
+  background: var(--primary);
+  color: rgba(255,255,255,0.8);
   font-size: 0.85rem;
 }
 
 footer a {
-  color: var(--primary);
+  color: var(--accent);
   text-decoration: none;
 }
 
@@ -426,8 +452,8 @@ footer a {
 }
 
 .admin-sidebar {
-  background: var(--bg2);
-  border-right: 1px solid var(--border);
+  background: var(--primary);
+  border-right: none;
   padding: 24px 16px;
   position: sticky;
   top: 70px;
@@ -443,7 +469,7 @@ footer a {
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  color: var(--text-muted);
+  color: rgba(255,255,255,0.5);
   padding: 0 12px;
   margin-bottom: 8px;
 }
@@ -457,7 +483,7 @@ footer a {
   border-radius: 8px;
   border: none;
   background: transparent;
-  color: var(--text-muted);
+  color: rgba(255,255,255,0.75);
   cursor: pointer;
   font-size: 0.9rem;
   text-align: left;
@@ -467,8 +493,8 @@ footer a {
 
 .sidebar-btn:hover,
 .sidebar-btn.active {
-  background: var(--bg3);
-  color: var(--text);
+  background: rgba(255,255,255,0.18);
+  color: #fff;
 }
 
 .sidebar-btn .icon {
@@ -480,12 +506,14 @@ footer a {
 .admin-main {
   padding: 32px;
   max-width: 900px;
+  background: var(--bg);
 }
 
 .admin-page-title {
   font-size: 1.6rem;
   font-weight: 800;
   margin-bottom: 8px;
+  color: var(--primary);
 }
 
 .admin-page-sub {
@@ -503,10 +531,11 @@ footer a {
 }
 
 .stat-card {
-  background: var(--bg2);
+  background: #fff;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 20px;
+  border-top: 3px solid var(--primary);
 }
 
 .stat-value {
@@ -523,7 +552,7 @@ footer a {
 
 /* ── FORM ── */
 .form-card {
-  background: var(--bg2);
+  background: #fff;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 28px;
@@ -535,7 +564,8 @@ footer a {
   font-weight: 700;
   margin-bottom: 24px;
   padding-bottom: 14px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 2px solid var(--border);
+  color: var(--primary);
 }
 
 .form-grid {
@@ -561,8 +591,8 @@ label {
 }
 
 input, select, textarea {
-  background: var(--bg3);
-  border: 1px solid var(--border);
+  background: var(--bg2);
+  border: 1.5px solid var(--border);
   border-radius: 8px;
   color: var(--text);
   padding: 10px 14px;
@@ -582,7 +612,7 @@ textarea {
 }
 
 select option {
-  background: var(--bg3);
+  background: #fff;
 }
 
 /* ── IMAGE UPLOAD ── */
@@ -599,7 +629,7 @@ select option {
 .upload-zone:hover,
 .upload-zone.drag-over {
   border-color: var(--primary);
-  background: rgba(200,169,110,0.05);
+  background: rgba(192,57,43,0.04);
 }
 
 .upload-zone input[type="file"] {
@@ -648,7 +678,7 @@ select option {
 
 .btn-primary {
   background: var(--primary);
-  color: #000;
+  color: #fff;
 }
 
 .btn-primary:hover {
@@ -656,9 +686,9 @@ select option {
 }
 
 .btn-ghost {
-  background: var(--bg3);
+  background: var(--bg2);
   color: var(--text);
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
 }
 
 .btn-ghost:hover {
@@ -667,9 +697,9 @@ select option {
 }
 
 .btn-danger {
-  background: rgba(224,85,85,0.15);
+  background: rgba(192,57,43,0.1);
   color: var(--danger);
-  border: 1px solid rgba(224,85,85,0.2);
+  border: 1px solid rgba(192,57,43,0.2);
 }
 
 .btn-danger:hover {
@@ -692,7 +722,7 @@ select option {
 
 /* ── ITEMS TABLE ── */
 .items-card {
-  background: var(--bg2);
+  background: #fff;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
@@ -704,16 +734,18 @@ select option {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background: var(--bg2);
 }
 
 .items-header h2 {
   font-size: 1rem;
   font-weight: 700;
+  color: var(--primary);
 }
 
 .search-input {
-  background: var(--bg3);
-  border: 1px solid var(--border);
+  background: #fff;
+  border: 1.5px solid var(--border);
   border-radius: 8px;
   color: var(--text);
   padding: 8px 14px;
@@ -744,7 +776,7 @@ select option {
 }
 
 .item-row:hover {
-  background: var(--bg3);
+  background: var(--bg2);
 }
 
 .item-thumb {
@@ -778,6 +810,7 @@ select option {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: var(--text);
 }
 
 .item-meta {
@@ -804,7 +837,7 @@ select option {
   position: fixed;
   bottom: 24px;
   right: 24px;
-  background: var(--bg2);
+  background: #fff;
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 14px 20px;
@@ -818,6 +851,7 @@ select option {
   gap: 10px;
   max-width: 320px;
   box-shadow: var(--shadow);
+  color: var(--text);
 }
 
 .toast.show {
@@ -838,7 +872,7 @@ select option {
     position: static;
     height: auto;
     border-right: none;
-    border-bottom: 1px solid var(--border);
+    border-bottom: none;
     display: flex;
     gap: 8px;
     padding: 12px;

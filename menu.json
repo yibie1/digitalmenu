@@ -1,80 +1,24 @@
 {
   "restaurant": {
-    "name": "Bella Cucina",
-    "tagline": "Fine Dining & Catering",
-    "description": "Authentic flavors crafted with passion. Available for dine-in, takeout, and private catering events.",
+    "name": "Yene Habeshan Food & Catering",
+    "tagline": "Authentic Habeshan Taste Delivered to You",
+    "description": "Experience the rich flavors of Habeshan culture — traditional injera, hearty stews, and vibrant spices. Available for dine-in, takeout, and private catering events.",
     "phone": "+44 7547 226868",
     "whatsapp": "447547226868",
     "telegram": "447547226868",
-    "email": "hello@bellacucina.com",
-    "address": "123 Main Street, New York, NY"
+    "email": "info@yenehabeshan.com",
+    "address": "London, United Kingdom"
   },
   "items": [
-    {
-      "id": "1",
-      "title": "Truffle Risotto",
-      "category": "Main Course",
-      "price": "28.00",
-      "description": "Creamy Arborio rice with black truffle shavings, parmesan, and fresh herbs.",
-      "recipe": "Ingredients:\n- 300g Arborio rice\n- 50g black truffle\n- 100g parmesan\n- 1L vegetable stock\n- 1 shallot, diced\n- 2 tbsp butter\n- White wine\n\nMethod:\nSauté shallot in butter, add rice and toast 2 min. Deglaze with wine. Add warm stock ladle by ladle, stirring constantly. Finish with truffle and parmesan.",
-      "emoji": "🍚",
-      "image": "",
-      "badge": "Chef's Pick"
-    },
-    {
-      "id": "2",
-      "title": "Burrata Caprese",
-      "category": "Starters",
-      "price": "16.00",
-      "description": "Fresh burrata with heirloom tomatoes, basil oil, and aged balsamic.",
-      "recipe": "Ingredients:\n- 2 burrata balls\n- 4 heirloom tomatoes\n- Fresh basil\n- Extra virgin olive oil\n- Aged balsamic glaze\n- Sea salt & black pepper\n\nMethod:\nSlice tomatoes, arrange with burrata. Drizzle with olive oil and balsamic. Season and garnish with basil.",
-      "emoji": "🧀",
-      "image": "",
-      "badge": "Popular"
-    },
-    {
-      "id": "3",
-      "title": "Grilled Sea Bass",
-      "category": "Main Course",
-      "price": "34.00",
-      "description": "Mediterranean sea bass with lemon caper butter, roasted vegetables, and herb oil.",
-      "recipe": "Ingredients:\n- 2 sea bass fillets\n- 2 tbsp capers\n- 1 lemon\n- 50g butter\n- Mixed vegetables\n- Fresh herbs\n\nMethod:\nSeason fish, grill skin-side down 4 min. Flip and cook 2 more min. Make caper butter by melting butter with capers and lemon juice. Serve over roasted veg.",
-      "emoji": "🐟",
-      "image": "",
-      "badge": ""
-    },
-    {
-      "id": "4",
-      "title": "Tiramisu",
-      "category": "Desserts",
-      "price": "12.00",
-      "description": "Classic Italian tiramisu with espresso-soaked ladyfingers and mascarpone cream.",
-      "recipe": "Ingredients:\n- 250g mascarpone\n- 3 eggs, separated\n- 80g sugar\n- 200ml espresso\n- Ladyfinger biscuits\n- Cocoa powder\n\nMethod:\nWhip yolks with sugar until pale. Fold in mascarpone. Whip whites to stiff peaks, fold in. Dip ladyfingers in espresso, layer with cream. Dust with cocoa. Chill 4 hours.",
-      "emoji": "🍮",
-      "image": "",
-      "badge": "Signature"
-    },
-    {
-      "id": "5",
-      "title": "Aperol Spritz",
-      "category": "Drinks",
-      "price": "10.00",
-      "description": "Classic Italian aperitif with Aperol, Prosecco, and a splash of soda.",
-      "recipe": "Ingredients:\n- 3 parts Prosecco\n- 2 parts Aperol\n- 1 splash soda water\n- Orange slice\n- Ice\n\nMethod:\nFill glass with ice. Add Prosecco first, then Aperol, then soda. Garnish with orange.",
-      "emoji": "🍹",
-      "image": "",
-      "badge": ""
-    },
-    {
-      "id": "6",
-      "title": "Catering Platter",
-      "category": "Catering",
-      "price": "85.00",
-      "description": "Premium selection of antipasti, charcuterie, and artisan cheeses. Serves 6–8.",
-      "recipe": "Includes:\n- Prosciutto di Parma\n- Salami Milano\n- Burrata & mozzarella\n- Marinated olives\n- Grilled vegetables\n- Artisan bread\n- Seasonal fruits\n- Honey & fig jam\n\nPerfect for events and gatherings. Order 48h in advance.",
-      "emoji": "🍱",
-      "image": "",
-      "badge": "Catering"
-    }
+    { "id": "1", "title": "Doro Wat", "category": "Stews (Wat)", "price": "14.99", "description": "The most beloved Habeshan dish — slow-cooked chicken in rich berbere spice sauce with boiled eggs.", "recipe": "Ingredients:\n- 1 whole chicken, cut into pieces\n- 4 boiled eggs\n- 4 onions, finely chopped\n- 4 tbsp berbere spice\n- 3 tbsp niter kibbeh (spiced butter)\n- 1 tsp cardamom\n- Salt to taste\n\nMethod:\nDry-cook onions until golden. Add niter kibbeh and berbere, cook 10 min. Add chicken, coat well. Add water, simmer 45 min. Add scored boiled eggs last 10 min.", "emoji": "🍗", "image": "", "badge": "Signature" },
+    { "id": "2", "title": "Misir Wat", "category": "Stews (Wat)", "price": "10.99", "description": "Spiced red lentils slow-cooked with berbere, onions, and niter kibbeh. A vegan classic.", "recipe": "Ingredients:\n- 2 cups red lentils\n- 3 onions, diced\n- 3 tbsp berbere\n- 2 tbsp niter kibbeh\n- 4 garlic cloves\n- 1 tsp ginger\n- Salt to taste\n\nMethod:\nSauté onions until caramelised. Add garlic, ginger, berbere. Add lentils and water, simmer 30 min until thick.", "emoji": "🫘", "image": "", "badge": "Vegan" },
+    { "id": "3", "title": "Tibs (Beef)", "category": "Grills & Tibs", "price": "16.99", "description": "Sautéed tender beef with rosemary, jalapeño, onions, and Habeshan spices. Served sizzling.", "recipe": "Ingredients:\n- 500g beef, cubed\n- 2 onions, sliced\n- 2 jalapeños\n- 2 sprigs rosemary\n- 2 tbsp niter kibbeh\n- 1 tsp mitmita\n- Salt & pepper\n\nMethod:\nHeat niter kibbeh in pan. Sear beef on high heat. Add onions, jalapeño, rosemary. Season with mitmita. Serve immediately.", "emoji": "🥩", "image": "", "badge": "Popular" },
+    { "id": "4", "title": "Injera", "category": "Bread & Sides", "price": "3.50", "description": "Traditional sourdough flatbread made from teff flour. The foundation of every Habeshan meal.", "recipe": "Ingredients:\n- 2 cups teff flour\n- 2.5 cups water\n- Pinch of salt\n\nMethod:\nMix teff and water, ferment 2–3 days. Add salt, pour thin batter onto hot flat pan. Cover and cook until bubbles form and surface is dry. Do not flip.", "emoji": "🫓", "image": "", "badge": "" },
+    { "id": "5", "title": "Shiro Wat", "category": "Stews (Wat)", "price": "10.99", "description": "Smooth chickpea flour stew with berbere and niter kibbeh. A comforting Habeshan staple.", "recipe": "Ingredients:\n- 1 cup shiro powder\n- 3 onions\n- 3 tbsp berbere\n- 2 tbsp niter kibbeh\n- 3 cups water\n- Garlic & ginger\n\nMethod:\nSauté onions, add berbere and niter kibbeh. Gradually whisk in shiro powder with water. Simmer 20 min, stirring constantly.", "emoji": "🍲", "image": "", "badge": "Vegan" },
+    { "id": "6", "title": "Kitfo", "category": "Grills & Tibs", "price": "17.99", "description": "Habeshan-style minced beef seasoned with mitmita and niter kibbeh. Served raw, medium, or well-done.", "recipe": "Ingredients:\n- 500g lean beef mince\n- 2 tbsp niter kibbeh\n- 1 tsp mitmita\n- 1 tsp cardamom\n- Salt to taste\n\nMethod:\nMix warm niter kibbeh with mitmita and cardamom. Combine with beef mince. Serve as desired.", "emoji": "🥩", "image": "", "badge": "Chef's Pick" },
+    { "id": "7", "title": "Beyaynetu (Fasting Platter)", "category": "Platters", "price": "18.99", "description": "A colourful vegan platter of assorted Habeshan dishes on injera — misir, shiro, gomen, and more.", "recipe": "Includes:\n- Misir wat\n- Shiro wat\n- Gomen (collard greens)\n- Tikil gomen (cabbage & carrots)\n- Fosolia (green beans)\n- Served on injera", "emoji": "🍽", "image": "", "badge": "Vegan" },
+    { "id": "8", "title": "Tej (Honey Wine)", "category": "Drinks", "price": "6.99", "description": "Traditional Habeshan honey wine with a light, sweet, and slightly bitter taste.", "recipe": "Traditional fermented honey wine. Served chilled in a berele (flask-shaped glass).", "emoji": "🍯", "image": "", "badge": "Traditional" },
+    { "id": "9", "title": "Habeshan Coffee Ceremony", "category": "Drinks", "price": "5.99", "description": "Freshly roasted and brewed Habeshan coffee served in three rounds — abol, tona, and baraka.", "recipe": "Green coffee beans roasted fresh, ground by hand, brewed in a jebena (clay pot). Served with popcorn and incense. Three rounds: Abol, Tona, Baraka.", "emoji": "☕", "image": "", "badge": "Must Try" },
+    { "id": "10", "title": "Catering Package", "category": "Catering", "price": "120.00", "description": "Full Habeshan feast for events — injera, assorted wats, tibs, and drinks. Serves 10–12.", "recipe": "Package includes:\n- Large injera rolls\n- Doro wat\n- Misir wat\n- Beef tibs\n- Beyaynetu platter\n- Tej or soft drinks\n- Disposable serving ware\n\nMinimum 48h advance booking required.", "emoji": "🎉", "image": "", "badge": "Catering" }
   ]
 }

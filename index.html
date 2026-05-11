@@ -16,19 +16,20 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: radial-gradient(ellipse at top, #1e1a14 0%, var(--bg) 70%);
+      background: linear-gradient(160deg, #c0392b 0%, #96281b 60%, #fdf6f6 100%);
     }
     .pin-card {
-      background: var(--bg2);
+      background: #fff;
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 40px 36px;
       width: 100%;
       max-width: 360px;
       text-align: center;
+      box-shadow: 0 8px 40px rgba(192,57,43,0.2);
     }
     .pin-icon { font-size: 2.5rem; margin-bottom: 16px; }
-    .pin-card h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 6px; }
+    .pin-card h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 6px; color: var(--primary); }
     .pin-card p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 28px; }
     .pin-dots {
       display: flex;
@@ -51,8 +52,8 @@
       gap: 10px;
     }
     .pin-key {
-      background: var(--bg3);
-      border: 1px solid var(--border);
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
       border-radius: 12px;
       color: var(--text);
       font-size: 1.2rem;
@@ -61,7 +62,7 @@
       cursor: pointer;
       transition: all 0.15s;
     }
-    .pin-key:hover { background: var(--primary); color: #000; border-color: var(--primary); }
+    .pin-key:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
     .pin-key.del { font-size: 1rem; color: var(--text-muted); }
     .pin-error { color: var(--danger); font-size: 0.82rem; margin-top: 14px; min-height: 18px; }
 
@@ -94,7 +95,7 @@
     .cart-overlay.open { opacity: 1; pointer-events: all; }
     .cart-drawer {
       position: fixed; bottom: 0; left: 0; right: 0;
-      background: var(--bg2); border-top: 1px solid var(--border);
+      background: #fff; border-top: 2px solid var(--primary);
       border-radius: 20px 20px 0 0; z-index: 301; max-height: 80vh;
       display: flex; flex-direction: column;
       transform: translateY(100%);
@@ -102,8 +103,8 @@
     }
     .cart-overlay.open .cart-drawer { transform: translateY(0); }
     .cart-handle { width: 40px; height: 4px; background: var(--border); border-radius: 2px; margin: 12px auto 0; }
-    .cart-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-    .cart-header h2 { font-size: 1.1rem; font-weight: 700; }
+    .cart-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--bg2); }
+    .cart-header h2 { font-size: 1.1rem; font-weight: 700; color: var(--primary); }
     .cart-clear { background: none; border: none; color: var(--text-muted); font-size: 0.8rem; cursor: pointer; padding: 4px 8px; border-radius: 6px; }
     .cart-clear:hover { color: var(--danger); }
     .cart-items { overflow-y: auto; flex: 1; padding: 12px 20px; }
@@ -119,7 +120,7 @@
     .cart-total { display: flex; justify-content: space-between; font-size: 1rem; font-weight: 700; margin-bottom: 16px; }
     .cart-total span:last-child { color: var(--primary); font-size: 1.2rem; }
     .cart-note-label { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px; }
-    .cart-note { width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; color: var(--text); padding: 10px 12px; font-size: 0.85rem; resize: none; outline: none; font-family: inherit; margin-bottom: 14px; }
+    .cart-note { width: 100%; background: var(--bg2); border: 1.5px solid var(--border); border-radius: 8px; color: var(--text); padding: 10px 12px; font-size: 0.85rem; resize: none; outline: none; font-family: inherit; margin-bottom: 14px; }
     .cart-note:focus { border-color: var(--primary); }
     .cart-empty { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 0.9rem; }
     .order-btns { display: flex; flex-direction: column; gap: 10px; }
@@ -131,8 +132,8 @@
     .btn-add-cart:hover { background:var(--primary-dark); }
 
     /* ── ADMIN NAV LINK ── */
-    .nav-route { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; padding: 8px 16px; border-radius: 8px; transition: all 0.2s; cursor: pointer; background: none; border: none; }
-    .nav-route:hover { color: var(--text); background: var(--bg3); }
+    .nav-route { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.9rem; padding: 8px 16px; border-radius: 8px; transition: all 0.2s; cursor: pointer; background: none; border: none; font-family: inherit; }
+    .nav-route:hover { color: #fff; background: rgba(255,255,255,0.15); }
   </style>
 </head>
 <body>
@@ -143,7 +144,7 @@
 <header class="site-header" id="app-header">
   <div class="logo">
     <div class="logo-icon" id="header-icon">🍽</div>
-    <div class="logo-text" id="header-name">Bella <span>Cucina</span></div>
+    <div class="logo-text" id="header-name">Yene <span>Habeshan</span></div>
   </div>
   <nav class="header-nav" id="header-nav"></nav>
 </header>
@@ -153,9 +154,9 @@
 ══════════════════════════════════════════════════════ -->
 <div class="page" id="page-menu">
   <section class="hero">
-    <div class="hero-tag">✦ Est. 2018</div>
-    <h1 id="hero-title">Fine Dining &amp; <span>Catering</span></h1>
-    <p id="hero-desc">Authentic flavors crafted with passion.</p>
+    <div class="hero-tag">✦ Habeshan Cuisine</div>
+    <h1 id="hero-title">Authentic Habeshan <span>Taste</span></h1>
+    <p id="hero-desc">Experience the rich flavors of Habeshan culture — traditional injera, hearty stews, and vibrant spices.</p>
   </section>
 
   <div class="category-bar" id="category-bar">
@@ -168,9 +169,7 @@
 
   <footer>
     <p id="footer-info"></p>
-    <p style="margin-top:8px">
-      <button class="nav-route" onclick="navigate('admin')">Owner login ⚙️</button>
-    </p>
+    <p style="margin-top:8px;color:rgba(255,255,255,0.5);font-size:0.8rem">© Yene Habeshan Food &amp; Catering</p>
   </footer>
 </div>
 
@@ -371,7 +370,7 @@
     </div>
     <div class="cart-items" id="cart-items"></div>
     <div class="cart-footer">
-      <div class="cart-total"><span>Total</span><span id="cart-total-price">$0.00</span></div>
+      <div class="cart-total"><span>Total</span><span id="cart-total-price">£0.00</span></div>
       <div class="cart-note-label">Special requests / table number</div>
       <textarea class="cart-note" id="cart-note" rows="2" placeholder="e.g. Table 4, no onions…"></textarea>
       <div class="order-btns" id="order-btns"></div>
@@ -426,8 +425,7 @@ function handleRoute() {
   if (hash === 'menu' || hash === '') {
     document.getElementById('page-menu').classList.add('active');
     document.getElementById('header-icon').textContent = '🍽';
-    document.getElementById('header-nav').innerHTML =
-      `<button class="nav-route" onclick="navigate('admin')">Owner ⚙️</button>`;
+    document.getElementById('header-nav').innerHTML = '';
     initMenuPage();
 
   } else if (hash === 'admin') {
@@ -446,13 +444,17 @@ function handleRoute() {
 function showAdminPage() {
   document.getElementById('page-admin').classList.add('active');
   document.getElementById('header-icon').textContent = '⚙️';
+  const info = getRestaurantInfo();
+  document.getElementById('header-name').innerHTML =
+    info.name.replace('Yene Habeshan', 'Yene <span>Habeshan</span>') || info.name;
   document.getElementById('header-nav').innerHTML =
-    `<button class="nav-route" onclick="navigate('menu')">← View Menu</button>`;
+    `<button class="nav-route" onclick="navigate('menu')">🍽 View Menu</button>`;
   initAdminPage();
 }
 
 function adminLogout() {
   clearAuth();
+  adminInited = false;
   navigate('menu');
 }
 
@@ -515,25 +517,23 @@ document.addEventListener('keydown', e => {
 // ══════════════════════════════════════════════════════════
 let allItems = [], restaurantInfo = {}, activeCategory = 'all';
 let cart = [], currentModalItem = null;
-let menuInited = false;
 
 async function initMenuPage() {
-  if (!menuInited) {
-    const data = await loadMenuFromJSON();
-    restaurantInfo = data.restaurant;
-    allItems = data.items;
-    menuInited = true;
+  const data = await loadMenuFromJSON();
+  restaurantInfo = data.restaurant;
+  allItems = data.items;
+  activeCategory = 'all';
 
-    const info = restaurantInfo;
-    document.title = `Menu — ${info.name}`;
-    document.getElementById('header-name').innerHTML = info.name.replace(/(\S+)$/, '<span>$1</span>');
-    document.getElementById('hero-title').innerHTML = (info.tagline||'').replace(/(\S+)$/, '<span>$1</span>');
-    document.getElementById('hero-desc').textContent = info.description || '';
-    document.getElementById('footer-info').textContent = `${info.name} · ${info.phone} · ${info.address}`;
-    buildCategoryBar();
-    renderMenu();
-    renderOrderButtons();
-  }
+  const info = restaurantInfo;
+  document.title = `Menu — ${info.name}`;
+  document.getElementById('header-name').innerHTML =
+    info.name.replace('Yene Habeshan', 'Yene <span>Habeshan</span>') || info.name;
+  document.getElementById('hero-title').innerHTML = (info.tagline||'').replace(/(\S+)$/, '<span>$1</span>');
+  document.getElementById('hero-desc').textContent = info.description || '';
+  document.getElementById('footer-info').textContent = `${info.name} · ${info.phone} · ${info.address}`;
+  buildCategoryBar();
+  renderMenu();
+  renderOrderButtons();
   updateCartFab();
 }
 
@@ -576,7 +576,7 @@ function cardHTML(item) {
       <div class="card-title">${escHtml(item.title)}</div>
       <div class="card-desc">${escHtml(item.description)}</div>
       <div class="card-footer">
-        <div class="card-price">$${escHtml(item.price)}</div>
+        <div class="card-price">£${escHtml(item.price)}</div>
         ${item.badge ? `<span class="card-badge">${escHtml(item.badge)}</span>` : ''}
       </div>
     </div>
@@ -591,7 +591,7 @@ function openModal(id) {
   imgEl.innerHTML = item.image ? `<img src="${item.image}" alt="${escHtml(item.title)}" />` : (item.emoji||'🍽');
   document.getElementById('modal-category').textContent = item.category;
   document.getElementById('modal-title').textContent = item.title;
-  document.getElementById('modal-price').textContent = `$${item.price}`;
+  document.getElementById('modal-price').textContent = `£${item.price}`;
   document.getElementById('modal-desc').textContent = item.description;
   const rw = document.getElementById('modal-recipe-wrap');
   if (item.recipe) { document.getElementById('modal-recipe').textContent = item.recipe; rw.style.display='block'; }
@@ -625,7 +625,7 @@ function updateCartUI() {
   const count = cart.reduce((s,c)=>s+c.qty,0);
   document.getElementById('cart-count').textContent = count;
   document.getElementById('cart-fab').classList.toggle('hidden', count===0);
-  document.getElementById('cart-total-price').textContent = `$${total.toFixed(2)}`;
+  document.getElementById('cart-total-price').textContent = `£${total.toFixed(2)}`;
   const el = document.getElementById('cart-items');
   if (!cart.length) { el.innerHTML=`<div class="cart-empty">Your order is empty.<br>Tap any item to add it.</div>`; return; }
   el.innerHTML = cart.map(c=>`
@@ -636,7 +636,7 @@ function updateCartUI() {
         <span class="qty-num">${c.qty}</span>
         <button class="qty-btn" onclick="changeQty('${c.id}',1)">+</button>
       </div>
-      <div class="cart-item-price">$${(c.price*c.qty).toFixed(2)}</div>
+      <div class="cart-item-price">£${(c.price*c.qty).toFixed(2)}</div>
     </div>`).join('');
 }
 function changeQty(id,delta) {
@@ -657,8 +657,8 @@ function buildOrderMessage() {
   const note = document.getElementById('cart-note').value.trim();
   const total = cart.reduce((s,c)=>s+c.price*c.qty,0);
   let msg = `🍽 *New Order — ${restaurantInfo.name}*\n\n`;
-  cart.forEach(c=>{ msg+=`• ${c.title} x${c.qty} — $${(c.price*c.qty).toFixed(2)}\n`; });
-  msg += `\n*Total: $${total.toFixed(2)}*`;
+  cart.forEach(c=>{ msg+=`• ${c.title} x${c.qty} — £${(c.price*c.qty).toFixed(2)}\n`; });
+  msg += `\n*Total: £${total.toFixed(2)}*`;
   if (note) msg += `\n\n📝 Note: ${note}`;
   return msg;
 }
@@ -743,7 +743,7 @@ function itemRowHTML(item) {
   const thumb=item.image?`<div class="item-thumb"><img src="${item.image}" alt="${escHtml(item.title)}" /></div>`:`<div class="item-thumb">${item.emoji||'🍽'}</div>`;
   return `<li class="item-row" data-id="${item.id}">${thumb}
     <div class="item-info"><div class="item-name">${escHtml(item.title)}</div><div class="item-meta">${escHtml(item.category)}${item.badge?` · ${escHtml(item.badge)}`:''}</div></div>
-    <div class="item-price">$${escHtml(item.price)}</div>
+    <div class="item-price">£${escHtml(item.price)}</div>
     <div class="item-actions">
       <button class="btn btn-ghost btn-sm edit-btn" data-id="${item.id}">✏️ Edit</button>
       <button class="btn btn-danger btn-sm delete-btn" data-id="${item.id}">🗑</button>
