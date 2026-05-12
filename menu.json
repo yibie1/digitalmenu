@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-12T15:16:23.064Z",
+  "_updated": "2026-05-12T15:26:05.336Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -137,6 +137,17 @@
       "title": "Special kitfo እስፔሻል ክትፎ",
       "category": "Stews (Wat)",
       "price": "15.00",
+      "description": "Best",
+      "recipe": "Best",
+      "badge": "Chefi",
+      "emoji": "🍽",
+      "image": ""
+    },
+    {
+      "id": "mp2s9btish7zehmlirb",
+      "title": "Gored Gored ጎረድ ጎረድ",
+      "category": "Stews (Wat)",
+      "price": "14.00",
       "description": "Best",
       "recipe": "Best",
       "badge": "Chefi",
