@@ -26,17 +26,19 @@ body {
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 /* ── HEADER ── */
 .site-header {
   background: var(--primary);
   border-bottom: none;
-  padding: 0 2rem;
+  padding: 0 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 70px;
+  min-height: 64px;
+  height: auto;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -48,6 +50,8 @@ body {
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  padding: 10px 0;
+  gap: 8px;
 }
 
 .logo {
@@ -486,8 +490,8 @@ footer a {
   border-right: none;
   padding: 24px 16px;
   position: sticky;
-  top: 70px;
-  height: calc(100vh - 70px);
+  top: 0;
+  height: 100vh;
   overflow-y: auto;
 }
 
@@ -896,16 +900,20 @@ select option {
 @media (max-width: 768px) {
   .admin-layout {
     grid-template-columns: 1fr;
-    padding-bottom: 70px; /* space for bottom nav */
+    padding-bottom: 70px;
+    width: 100%;
+    overflow-x: hidden;
   }
 
   .admin-sidebar {
-    display: none; /* replaced by bottom nav on mobile */
+    display: none;
   }
 
   .admin-main {
     padding: 16px;
     max-width: 100%;
+    width: 100%;
+    overflow-x: hidden;
   }
 
   .admin-page-title {
@@ -938,11 +946,14 @@ select option {
   .item-row {
     padding: 12px 16px;
     gap: 10px;
+    flex-wrap: wrap;
   }
 
   .item-actions {
-    flex-direction: column;
-    gap: 4px;
+    flex-direction: row;
+    gap: 6px;
+    width: 100%;
+    justify-content: flex-end;
   }
 
   .btn-sm {
@@ -956,15 +967,42 @@ select option {
 
   .site-header {
     padding: 0 1rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .header-top {
+    padding: 8px 0;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .logo-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+    flex-shrink: 0;
   }
 
   .logo-text {
-    font-size: 1rem;
+    font-size: 0.85rem;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
+  }
+
+  .nav-route {
+    font-size: 0.78rem;
+    padding: 6px 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   /* ── MOBILE ADMIN BOTTOM NAV ── */
   .admin-mobile-nav {
-    display: flex !important;
+    display: none; /* JS controls visibility via inline style */
   }
 }
 
