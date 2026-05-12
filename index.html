@@ -144,11 +144,13 @@
      SHARED HEADER (swapped per route)
 ══════════════════════════════════════════════════════ -->
 <header class="site-header" id="app-header">
-  <div class="logo">
-    <div class="logo-icon" id="header-icon">🍽</div>
-    <div class="logo-text" id="header-name">Yene <span>Habeshan</span></div>
+  <div class="header-top">
+    <div class="logo">
+      <div class="logo-icon" id="header-icon">🍽</div>
+      <div class="logo-text" id="header-name">Yene <span>Habeshan</span></div>
+    </div>
+    <nav class="header-nav" id="header-nav"></nav>
   </div>
-  <nav class="header-nav" id="header-nav"></nav>
 </header>
 
 <!-- ══════════════════════════════════════════════════════
@@ -159,6 +161,11 @@
     <div class="hero-tag">✦ Habeshan Cuisine</div>
     <h1 id="hero-title">Authentic Habeshan <span>Taste</span></h1>
     <p id="hero-desc">Experience the rich flavors of Habeshan culture — traditional injera, hearty stews, and vibrant spices.</p>
+    <div class="hero-badges">
+      <span class="hero-badge">🛵 Delivery</span>
+      <span class="hero-badge">🎉 Catering</span>
+      <span class="hero-badge">📦 Takeaway</span>
+    </div>
   </section>
 
   <div class="category-bar" id="category-bar">
@@ -363,6 +370,38 @@
             <button class="btn btn-ghost" onclick="saveGithubConfig()">💾 Save Config</button>
             <button class="btn btn-primary" id="publish-btn" onclick="publishToGitHub()">🚀 Publish Now</button>
             <span id="publish-status" style="font-size:0.82rem;color:var(--text-muted);align-self:center"></span>
+          </div>
+        </div>
+
+        <!-- CLOUDINARY IMAGE HOSTING -->
+        <div class="form-card" style="margin-top:0">
+          <h2>🖼 Image Hosting (Cloudinary)</h2>
+          <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:16px;line-height:1.6">
+            Without this, food photos are stored as base64 inside <code style="background:var(--bg3);padding:1px 5px;border-radius:3px">menu.json</code> which causes the file to exceed GitHub's size limit and images won't sync to other devices. Cloudinary is <strong style="color:var(--text)">free</strong> and fixes this permanently.
+          </p>
+          <details style="margin-bottom:16px">
+            <summary style="cursor:pointer;font-size:0.85rem;font-weight:600;color:var(--primary);padding:6px 0">▶ Setup (2 minutes, free)</summary>
+            <div style="background:var(--bg3);border-radius:10px;padding:14px;margin-top:8px;font-size:0.82rem;line-height:1.9;color:var(--text-muted)">
+              1. Go to <strong style="color:var(--text)">cloudinary.com</strong> → Sign up free<br>
+              2. In your dashboard, copy your <strong style="color:var(--text)">Cloud Name</strong><br>
+              3. Go to <strong style="color:var(--text)">Settings → Upload → Upload presets</strong><br>
+              4. Click <strong style="color:var(--text)">Add upload preset</strong> → set Signing Mode to <strong style="color:var(--text)">Unsigned</strong> → Save<br>
+              5. Copy the preset name and paste below
+            </div>
+          </details>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="cl-cloud">Cloud Name</label>
+              <input type="text" id="cl-cloud" placeholder="e.g. my-restaurant" />
+            </div>
+            <div class="form-group">
+              <label for="cl-preset">Upload Preset</label>
+              <input type="text" id="cl-preset" placeholder="e.g. menu_unsigned" />
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" onclick="saveCloudinaryConfig()">💾 Save</button>
+            <span id="cl-status" style="font-size:0.82rem;color:var(--text-muted);align-self:center"></span>
           </div>
         </div>
       </div>
@@ -766,6 +805,7 @@ function initAdminPage() {
   loadSettings();
   renderDashboard();
   populateGithubFields();
+  populateCloudinaryFields();
   switchView('dashboard', document.querySelector('[data-view=dashboard]'));
 }
 
@@ -880,25 +920,50 @@ function resetForm() {
 }
 
 function setupImageUpload() {
-  const zone=document.getElementById('upload-zone');
-  const input=document.getElementById('f-image');
-  input.addEventListener('change',async()=>{
-    const file=input.files[0]; if(!file)return;
-    if(file.size>5*1024*1024){showToast('Image must be under 5MB','error');return;}
-    currentImageData=await readFileAsDataURL(file);
-    document.getElementById('preview-img').src=currentImageData;
-    document.getElementById('upload-preview').style.display='block';
-  });
-  zone.addEventListener('dragover',e=>{e.preventDefault();zone.classList.add('drag-over');});
-  zone.addEventListener('dragleave',()=>zone.classList.remove('drag-over'));
-  zone.addEventListener('drop',async e=>{
-    e.preventDefault();zone.classList.remove('drag-over');
-    const file=e.dataTransfer.files[0];
-    if(!file||!file.type.startsWith('image/'))return;
-    if(file.size>5*1024*1024){showToast('Image must be under 5MB','error');return;}
-    currentImageData=await readFileAsDataURL(file);
-    document.getElementById('preview-img').src=currentImageData;
-    document.getElementById('upload-preview').style.display='block';
+  const zone  = document.getElementById('upload-zone');
+  const input = document.getElementById('f-image');
+  const cfg   = loadGithubConfig();
+
+  async function handleFile(file) {
+    if (!file || !file.type.startsWith('image/')) return;
+    if (file.size > 10 * 1024 * 1024) { showToast('Image must be under 10MB', 'error'); return; }
+
+    // Try Cloudinary if configured
+    const cloudName = localStorage.getItem('cloudinary_cloud_name');
+    const uploadPreset = localStorage.getItem('cloudinary_upload_preset');
+
+    if (cloudName && uploadPreset) {
+      showToast('Uploading image…');
+      try {
+        const fd = new FormData();
+        fd.append('file', file);
+        fd.append('upload_preset', uploadPreset);
+        const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+          method: 'POST', body: fd
+        });
+        const data = await res.json();
+        if (data.secure_url) {
+          currentImageData = data.secure_url;
+          document.getElementById('preview-img').src = currentImageData;
+          document.getElementById('upload-preview').style.display = 'block';
+          showToast('Image uploaded ✓');
+          return;
+        }
+      } catch (e) { showToast('Cloudinary upload failed, using local', 'error'); }
+    }
+
+    // Fallback: base64 (works locally, may fail on large images via GitHub API)
+    currentImageData = await readFileAsDataURL(file);
+    document.getElementById('preview-img').src = currentImageData;
+    document.getElementById('upload-preview').style.display = 'block';
+  }
+
+  input.addEventListener('change', () => handleFile(input.files[0]));
+  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+  zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+  zone.addEventListener('drop', e => {
+    e.preventDefault(); zone.classList.remove('drag-over');
+    handleFile(e.dataTransfer.files[0]);
   });
 }
 
@@ -950,6 +1015,27 @@ function saveSettings() {
   saveRestaurantInfo(info);
   showToast('Settings saved');
   autoPublish();
+}
+
+// ── CLOUDINARY CONFIG ─────────────────────────────────────────
+function saveCloudinaryConfig() {
+  const cloud  = document.getElementById('cl-cloud').value.trim();
+  const preset = document.getElementById('cl-preset').value.trim();
+  if (!cloud || !preset) { showToast('Enter both Cloud Name and Upload Preset', 'error'); return; }
+  localStorage.setItem('cloudinary_cloud_name', cloud);
+  localStorage.setItem('cloudinary_upload_preset', preset);
+  document.getElementById('cl-status').textContent = '✓ Saved — images will now upload to Cloudinary';
+  showToast('Cloudinary config saved ✓');
+}
+
+function populateCloudinaryFields() {
+  const cloud  = localStorage.getItem('cloudinary_cloud_name')  || '';
+  const preset = localStorage.getItem('cloudinary_upload_preset') || '';
+  if (document.getElementById('cl-cloud'))  document.getElementById('cl-cloud').value  = cloud;
+  if (document.getElementById('cl-preset')) document.getElementById('cl-preset').value = preset;
+  if (cloud && preset && document.getElementById('cl-status')) {
+    document.getElementById('cl-status').textContent = '✓ Configured';
+  }
 }
 
 // ── GITHUB CONFIG ────────────────────────────────────────────

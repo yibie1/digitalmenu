@@ -5,7 +5,7 @@ const RESTAURANT_KEY = 'restaurant_info_v1';
 const defaultRestaurant = {
   name: 'Yene Habeshan Food & Catering',
   tagline: 'Authentic Habeshan Taste Delivered to You',
-  description: 'Experience the rich flavors of Habeshan culture — traditional injera, hearty stews, and vibrant spices. Available for dine-in, takeout, and private catering events.',
+  description: 'Authentic Habeshan flavors delivered to your door. We offer delivery and catering services — bringing the taste of home to your table.',
   phone: '+44 7547 226868',
   whatsapp: '447547226868',
   telegram: '447547226868',

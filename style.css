@@ -43,6 +43,13 @@ body {
   box-shadow: 0 2px 12px rgba(192,57,43,0.25);
 }
 
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .logo {
   display: flex;
   align-items: center;
@@ -89,24 +96,23 @@ body {
 .hero {
   text-align: center;
   padding: 80px 2rem 60px;
-  background: linear-gradient(160deg, #c0392b 0%, #96281b 45%, #fdf6f6 100%);
   position: relative;
   overflow: hidden;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background:
+    linear-gradient(rgba(0,0,0,0.55), rgba(120,30,20,0.72)),
+    url('https://png.pngtree.com/thumb_back/fh260/background/20241007/pngtree-restaurant-menu-with-fast-food-images-through-online-banners-social-image_16290915.jpg') center/cover no-repeat;
 }
 
-.hero::before {
-  content: '✦';
-  position: absolute;
-  font-size: 18rem;
-  opacity: 0.04;
-  top: -40px;
-  right: -40px;
-  pointer-events: none;
-}
+.hero::before { display: none; }
 
 .hero-tag {
   display: inline-block;
-  background: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.18);
   color: #fff;
   border: 1px solid rgba(255,255,255,0.35);
   padding: 4px 14px;
@@ -123,6 +129,7 @@ body {
   line-height: 1.15;
   margin-bottom: 16px;
   color: #fff;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
 }
 
 .hero h1 span {
@@ -130,10 +137,31 @@ body {
 }
 
 .hero p {
-  color: rgba(255,255,255,0.85);
+  color: rgba(255,255,255,0.9);
   font-size: 1.1rem;
   max-width: 500px;
   margin: 0 auto 32px;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.3);
+}
+
+/* delivery badge strip */
+.hero-badges {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.hero-badge {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  backdrop-filter: blur(4px);
 }
 
 /* ── CATEGORY FILTER ── */
