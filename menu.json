@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-12T14:36:06.313Z",
+  "_updated": "2026-05-12T14:36:32.683Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -84,9 +84,9 @@
       "price": "18.99",
       "description": "A colourful vegan platter of assorted Habeshan dishes on injera — misir, shiro, gomen, and more.",
       "recipe": "Includes:\n- Misir wat (red lentils)\n- Shiro wat (chickpea stew)\n- Gomen (collard greens)\n- Tikil gomen (cabbage & carrots)\n- Fosolia (green beans)\n- Served on injera\n\nPerfect for fasting days or vegan guests.",
+      "badge": "Vegan",
       "emoji": "🍽",
-      "image": "",
-      "badge": "Vegan"
+      "image": "https://res.cloudinary.com/dy4ck5wom/image/upload/v1778596588/dtjlez2pdzhjjd31rl3i.jpg"
     },
     {
       "id": "8",
