@@ -417,6 +417,25 @@
   Order <span class="cart-count" id="cart-count">0</span>
 </button>
 
+<!-- ADMIN MOBILE BOTTOM NAV -->
+<nav class="admin-mobile-nav" id="admin-mobile-nav" aria-label="Admin navigation">
+  <button onclick="mobileNav('dashboard')" id="mnav-dashboard" class="active">
+    <span class="mnav-icon">📊</span>Dashboard
+  </button>
+  <button onclick="mobileNav('add-item')" id="mnav-add-item">
+    <span class="mnav-icon">➕</span>Add Item
+  </button>
+  <button onclick="mobileNav('items')" id="mnav-items">
+    <span class="mnav-icon">🍽</span>Items
+  </button>
+  <button onclick="mobileNav('settings')" id="mnav-settings">
+    <span class="mnav-icon">🏪</span>Settings
+  </button>
+  <button onclick="adminLogout()" id="mnav-logout">
+    <span class="mnav-icon">🚪</span>Logout
+  </button>
+</nav>
+
 <!-- DELETE CONFIRM -->
 <div class="modal-overlay" id="confirm-overlay">
   <div class="modal" style="max-width:400px;padding:32px;border-radius:16px">
@@ -454,6 +473,7 @@ function handleRoute() {
   // Hide all pages
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('cart-fab').classList.add('hidden');
+  document.getElementById('admin-mobile-nav').style.display = 'none';
 
   if (hash === 'menu' || hash === '') {
     document.getElementById('page-menu').classList.add('active');
@@ -476,6 +496,7 @@ function handleRoute() {
 
 function showAdminPage() {
   document.getElementById('page-admin').classList.add('active');
+  document.getElementById('admin-mobile-nav').style.display = 'flex';
   document.getElementById('header-icon').textContent = '⚙️';
   const info = getRestaurantInfo();
   document.getElementById('header-name').innerHTML =
@@ -488,7 +509,17 @@ function showAdminPage() {
 function adminLogout() {
   clearAuth();
   adminInited = false;
+  document.getElementById('admin-mobile-nav').style.display = 'none';
   navigate('menu');
+}
+
+function mobileNav(view) {
+  // Mirror the sidebar switchView
+  switchView(view, document.querySelector(`[data-view=${view}]`));
+  // Update mobile nav active state
+  document.querySelectorAll('.admin-mobile-nav button').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById(`mnav-${view}`);
+  if (btn) btn.classList.add('active');
 }
 
 window.addEventListener('hashchange', handleRoute);
@@ -529,6 +560,8 @@ function updatePinDots() {
 function checkPin() {
   if (pinBuffer === getPin()) {
     setAuthed();
+    // Hide all pages first, then show admin cleanly
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     showAdminPage();
   } else {
     for (let i = 0; i < 4; i++) document.getElementById(`d${i}`).classList.add('error');
@@ -748,6 +781,10 @@ function switchView(view, btn) {
   document.getElementById(`view-${view}`).style.display='block';
   document.querySelectorAll('.sidebar-btn').forEach(b=>b.classList.remove('active'));
   if (btn) btn.classList.add('active');
+  // sync mobile nav
+  document.querySelectorAll('.admin-mobile-nav button').forEach(b=>b.classList.remove('active'));
+  const mnav = document.getElementById(`mnav-${view}`);
+  if (mnav) mnav.classList.add('active');
   if (view==='items') renderItemsList();
   if (view==='dashboard') renderDashboard();
 }

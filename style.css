@@ -868,33 +868,58 @@ select option {
 @media (max-width: 768px) {
   .admin-layout {
     grid-template-columns: 1fr;
+    padding-bottom: 70px; /* space for bottom nav */
   }
 
   .admin-sidebar {
-    position: static;
-    height: auto;
-    border-right: none;
-    border-bottom: none;
-    display: flex;
-    gap: 8px;
-    padding: 12px;
-    overflow-x: auto;
+    display: none; /* replaced by bottom nav on mobile */
   }
-
-  .sidebar-section {
-    margin: 0;
-    display: flex;
-    gap: 4px;
-  }
-
-  .sidebar-label { display: none; }
 
   .admin-main {
-    padding: 20px 16px;
+    padding: 16px;
+    max-width: 100%;
+  }
+
+  .admin-page-title {
+    font-size: 1.3rem;
   }
 
   .form-grid {
     grid-template-columns: 1fr;
+  }
+
+  .form-card {
+    padding: 18px;
+  }
+
+  .stats-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .items-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
+  .item-row {
+    padding: 12px 16px;
+    gap: 10px;
+  }
+
+  .item-actions {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .btn-sm {
+    padding: 5px 10px;
+    font-size: 0.75rem;
   }
 
   .menu-grid {
@@ -904,4 +929,63 @@ select option {
   .site-header {
     padding: 0 1rem;
   }
+
+  .logo-text {
+    font-size: 1rem;
+  }
+
+  /* ── MOBILE ADMIN BOTTOM NAV ── */
+  .admin-mobile-nav {
+    display: flex !important;
+  }
 }
+
+@media (min-width: 769px) {
+  .admin-mobile-nav {
+    display: none !important;
+  }
+}
+
+/* ── ADMIN MOBILE BOTTOM NAV ── */
+.admin-mobile-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--primary);
+  z-index: 200;
+  height: 64px;
+  border-top: 2px solid var(--primary-dark);
+  box-shadow: 0 -4px 16px rgba(192,57,43,0.2);
+}
+
+.admin-mobile-nav button {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,0.7);
+  font-size: 0.65rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 4px;
+  transition: all 0.15s;
+  letter-spacing: 0.3px;
+}
+
+.admin-mobile-nav button .mnav-icon {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.admin-mobile-nav button.active,
+.admin-mobile-nav button:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.15);
+}
+
