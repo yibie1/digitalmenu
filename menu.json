@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-12T08:44:57.798Z",
+  "_updated": "2026-05-12T08:46:10.628Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -106,9 +106,9 @@
       "price": "5.99",
       "description": "Freshly roasted and brewed Habeshan coffee served in three rounds — abol, tona, and baraka.",
       "recipe": "Green coffee beans roasted fresh, ground by hand, brewed in a jebena (clay pot). Served with popcorn and incense. Three rounds: Abol (first), Tona (second), Baraka (blessing).",
+      "badge": "Must Try",
       "emoji": "☕",
-      "image": "",
-      "badge": "Must Try"
+      "image": "https://res.cloudinary.com/dy4ck5wom/image/upload/v1778575567/txwguarbta65woifjg6f.jpg"
     },
     {
       "id": "10",
