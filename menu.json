@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-12T09:45:47.760Z",
+  "_updated": "2026-05-12T09:46:37.659Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -134,14 +134,14 @@
     },
     {
       "id": "mp2fdzjzkpu419k1x9s",
-      "title": "ቀይ ወጥ | key wot",
+      "title": "ምን ቀረሽ | min keresh",
       "category": "Stews (Wat)",
       "price": "11.00",
       "description": "Beef spice",
       "recipe": "Meat",
       "badge": "Beef_souce",
       "emoji": "🍽",
-      "image": "https://res.cloudinary.com/dy4ck5wom/image/upload/v1778577944/nukhsplvdx1boq9wcmzn.jpg"
+      "image": "https://res.cloudinary.com/dy4ck5wom/image/upload/v1778579194/sqkd8qyq0f2vr0byevks.jpg"
     }
   ]
 }
