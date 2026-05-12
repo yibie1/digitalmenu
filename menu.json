@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-12T09:42:07.481Z",
+  "_updated": "2026-05-12T09:45:38.885Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -18,9 +18,9 @@
       "price": "14.99",
       "description": "The most beloved Habeshan dish — slow-cooked chicken in rich berbere spice sauce with boiled eggs.",
       "recipe": "Ingredients:\n- 1 whole chicken, cut into pieces\n- 4 boiled eggs\n- 4 onions, finely chopped\n- 4 tbsp berbere spice\n- 3 tbsp niter kibbeh (spiced butter)\n- 1 tsp cardamom\n- Salt to taste\n\nMethod:\nDry-cook onions until golden. Add niter kibbeh and berbere, cook 10 min. Add chicken, coat well. Add water, simmer 45 min. Add scored boiled eggs last 10 min.",
+      "badge": "Signature",
       "emoji": "🍗",
-      "image": "",
-      "badge": "Signature"
+      "image": "https://res.cloudinary.com/dy4ck5wom/image/upload/v1778579135/fz8b9sldo2vdig7o4q7o.jpg"
     },
     {
       "id": "2",
