@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-12T08:43:59.949Z",
+  "_updated": "2026-05-12T08:44:57.798Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -92,12 +92,12 @@
       "id": "8",
       "title": "Tej (Honey Wine)",
       "category": "Drinks",
-      "price": "6.99",
+      "price": "5.99",
       "description": "Traditional Habeshan honey wine with a light, sweet, and slightly bitter taste.",
       "recipe": "Traditional fermented honey wine. Served chilled in a berele (flask-shaped glass).",
+      "badge": "Traditional",
       "emoji": "🍯",
-      "image": "",
-      "badge": "Traditional"
+      "image": "https://res.cloudinary.com/dy4ck5wom/image/upload/v1778575494/umzewmacfnxtuv9neebl.jpg"
     },
     {
       "id": "9",
