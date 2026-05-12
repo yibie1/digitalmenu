@@ -1,14 +1,14 @@
 {
-  "_updated": "2026-05-12T10:00:52.033Z",
+  "_updated": "2026-05-12T10:42:26.858Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
-    "description": "Authentic Habeshan flavors delivered to your door. We offer delivery and catering services — bringing the taste of home to your table.",
     "phone": "+44 7547 226868",
     "whatsapp": "447547226868",
     "telegram": "447547226868",
     "email": "info@yenehabeshan.com",
-    "address": "London, United Kingdom"
+    "address": "Cardiff, United Kingdom",
+    "description": "Authentic Habeshan flavors delivered to your door. We offer delivery and catering services — bringing the taste of home to your table."
   },
   "items": [
     {
