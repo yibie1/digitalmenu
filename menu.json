@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-12T15:37:33.961Z",
+  "_updated": "2026-05-12T15:40:21.622Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -173,6 +173,17 @@
       "description": "Best",
       "recipe": "Best",
       "badge": "Chef",
+      "emoji": "🍽",
+      "image": ""
+    },
+    {
+      "id": "mp2sroj9yc9f3z3s8vf",
+      "title": "Alicha sga wot አልጫ ስጋ ወጥ",
+      "category": "Stews (Wat)",
+      "price": "12.00",
+      "description": "Best",
+      "recipe": "Best",
+      "badge": "Chefi",
       "emoji": "🍽",
       "image": ""
     }
