@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-12T15:01:45.683Z",
+  "_updated": "2026-05-12T15:09:26.594Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -40,9 +40,9 @@
       "price": "16.99",
       "description": "Sautéed tender beef with rosemary, jalapeño, onions, and Habeshan spices. Served sizzling.",
       "recipe": "Ingredients:\n- 500g beef, cubed\n- 2 onions, sliced\n- 2 jalapeños\n- 2 sprigs rosemary\n- 2 tbsp niter kibbeh\n- 1 tsp mitmita\n- Salt & pepper\n\nMethod:\nHeat niter kibbeh in pan. Sear beef on high heat. Add onions, jalapeño, rosemary. Season with mitmita. Serve immediately.",
+      "badge": "Popular",
       "emoji": "🥩",
-      "image": "",
-      "badge": "Popular"
+      "image": ""
     },
     {
       "id": "4",
