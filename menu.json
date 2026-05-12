@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-12T15:32:49.159Z",
+  "_updated": "2026-05-12T15:37:33.961Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -159,6 +159,17 @@
       "title": "Yetsom firfir የፆም ፍርፍር",
       "category": "Stews (Wat)",
       "price": "10.00",
+      "description": "Best",
+      "recipe": "Best",
+      "badge": "Chef",
+      "emoji": "🍽",
+      "image": ""
+    },
+    {
+      "id": "mp2so35zhbro533rizj",
+      "title": "Key wet ቀይ ወጥ",
+      "category": "Stews (Wat)",
+      "price": "12.00",
       "description": "Best",
       "recipe": "Best",
       "badge": "Chef",
