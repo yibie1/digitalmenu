@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-12T08:37:39.380Z",
+  "_updated": "2026-05-12T08:40:45.488Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -62,9 +62,9 @@
       "price": "10.99",
       "description": "Smooth chickpea flour stew with berbere and niter kibbeh. A comforting Habeshan staple.",
       "recipe": "Ingredients:\n- 1 cup shiro powder (chickpea flour blend)\n- 3 onions\n- 3 tbsp berbere\n- 2 tbsp niter kibbeh\n- 3 cups water\n- Garlic & ginger\n\nMethod:\nSauté onions, add berbere and niter kibbeh. Gradually whisk in shiro powder with water. Simmer 20 min, stirring constantly.",
+      "badge": "Vegan",
       "emoji": "🍲",
-      "image": "",
-      "badge": "Vegan"
+      "image": "https://res.cloudinary.com/dy4ck5wom/image/upload/v1778575241/zlyu5oxpe1qpdmchkzi8.jpg"
     },
     {
       "id": "6",
