@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-12T15:09:26.594Z",
+  "_updated": "2026-05-12T15:16:23.064Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -131,6 +131,17 @@
       "badge": "Best",
       "emoji": "🍽",
       "image": "https://res.cloudinary.com/dy4ck5wom/image/upload/v1778596565/jzsjxuq53s15uikxv5zp.jpg"
+    },
+    {
+      "id": "mp2rwujc6bbcif1qtc4",
+      "title": "Special kitfo እስፔሻል ክትፎ",
+      "category": "Stews (Wat)",
+      "price": "15.00",
+      "description": "Best",
+      "recipe": "Best",
+      "badge": "Chefi",
+      "emoji": "🍽",
+      "image": ""
     }
   ]
 }
