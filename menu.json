@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-15T18:26:09.792Z",
+  "_updated": "2026-05-15T18:26:35.331Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -127,7 +127,7 @@
       "category": "Stews (Wat)",
       "price": "15.00",
       "description": "Habeshan-style minced beef seasoned with mitmita and niter kibbeh. Served raw, medium, or well-done.",
-      "recipe": "Best",
+      "recipe": "Ingredients:\n- 500g lean beef mince\n- 2 tbsp niter kibbeh\n- 1 tsp mitmita\n- 1 tsp cardamom\n- Salt to taste",
       "badge": "Chefi",
       "emoji": "🍽",
       "image": "https://res.cloudinary.com/dy4ck5wom/image/upload/v1778869410/jnoi2ufvouabqpbsvmri.jpg"
