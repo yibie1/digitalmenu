@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-15T16:45:29.917Z",
+  "_updated": "2026-05-15T17:00:02.313Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -185,7 +185,7 @@
       "recipe": "Thin pastry stuffed with lentils,\nonion, green chili, garlic, and\nEthiopian spices, then deep-fried until crispy",
       "badge": "Crispy snack",
       "emoji": "🍽",
-      "image": ""
+      "image": "https://res.cloudinary.com/dy4ck5wom/image/upload/v1778864391/vv7y0uqlsiivmpwf9dvf.jpg"
     }
   ]
 }
