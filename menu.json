@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-15T15:23:54.257Z",
+  "_updated": "2026-05-15T15:24:27.473Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -11,17 +11,6 @@
     "description": "Authentic Habeshan flavors delivered to your door. We offer delivery and catering services — bringing the taste of home to your table."
   },
   "items": [
-    {
-      "id": "1",
-      "title": "Doro Wat",
-      "category": "Stews (Wat)",
-      "price": "14.99",
-      "description": "The most beloved Habeshan dish — slow-cooked chicken in rich berbere spice sauce with boiled eggs.",
-      "recipe": "Ingredients:\n- 1 whole chicken, cut into pieces\n- 4 boiled eggs\n- 4 onions, finely chopped\n- 4 tbsp berbere spice\n- 3 tbsp niter kibbeh (spiced butter)\n- 1 tsp cardamom\n- Salt to taste\n\nMethod:\nDry-cook onions until golden. Add niter kibbeh and berbere, cook 10 min. Add chicken, coat well. Add water, simmer 45 min. Add scored boiled eggs last 10 min.",
-      "emoji": "🍗",
-      "image": "",
-      "badge": "Signature"
-    },
     {
       "id": "2",
       "title": "Misir Wat",
