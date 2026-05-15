@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-15T18:35:05.065Z",
+  "_updated": "2026-05-15T18:48:09.783Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -197,6 +197,17 @@
       "badge": "Traditional Breakfast",
       "emoji": "🍽",
       "image": "https://res.cloudinary.com/dy4ck5wom/image/upload/v1778869354/jtpudd2wryjlorqwsw5z.jpg"
+    },
+    {
+      "id": "mp79sr3prqnig7m62ta",
+      "title": "Lamb Tibs | የበግ ጥብስ",
+      "category": "Grills & Tibs",
+      "price": "11.00",
+      "description": "Tender lamb cubes\nsautéed with onions,\npeppers, and Ethiopian\nbutter.",
+      "recipe": "Fresh lamb meat cooked with\nonion, tomato, rosemary,\njalapeño, garlic, and niter kibbeh.",
+      "badge": "Chef’s Special",
+      "emoji": "🍽",
+      "image": "https://res.cloudinary.com/dy4ck5wom/image/upload/v1778870885/lsf68ppjhj54f3qyz2no.jpg"
     }
   ]
 }
