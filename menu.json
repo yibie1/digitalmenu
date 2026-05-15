@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-15T17:25:23.210Z",
+  "_updated": "2026-05-15T18:22:37.694Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -197,6 +197,17 @@
       "badge": "Hot Clay Pot",
       "emoji": "🍽",
       "image": "https://res.cloudinary.com/dy4ck5wom/image/upload/v1778865891/e9tww2mbyj0t47pdsk8f.jpg"
+    },
+    {
+      "id": "mp78vwxpzbvxt39qva",
+      "title": "Egg Firfir | አንቁላል ፍርፍር",
+      "category": "Stews (Wat)",
+      "price": "7.00",
+      "description": "Scrambled eggs mixed\nwith shredded injera and\nspicy sauce.",
+      "recipe": "Eggs cooked with berbere sauce,\nonion, tomato, butter, and torn\ninjera pieces.",
+      "badge": "Traditional Breakfast",
+      "emoji": "🍽",
+      "image": "https://res.cloudinary.com/dy4ck5wom/image/upload/v1778869354/jtpudd2wryjlorqwsw5z.jpg"
     }
   ]
 }
