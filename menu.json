@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-15T17:00:02.313Z",
+  "_updated": "2026-05-15T17:06:13.525Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -31,7 +31,7 @@
       "recipe": "Ingredients:\n- 500g beef, cubed\n- 2 onions, sliced\n- 2 jalapeños\n- 2 sprigs rosemary\n- 2 tbsp niter kibbeh\n- 1 tsp mitmita\n- Salt & pepper\n\nMethod:\nHeat niter kibbeh in pan. Sear beef on high heat. Add onions, jalapeño, rosemary. Season with mitmita. Serve immediately.",
       "badge": "Popular",
       "emoji": "🥩",
-      "image": ""
+      "image": "https://res.cloudinary.com/dy4ck5wom/image/upload/v1778864766/vbgqrukuwp1ko1f5ucgo.jpg"
     },
     {
       "id": "4",
