@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-15T10:51:19.159Z",
+  "_updated": "2026-05-15T10:53:24.748Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -117,9 +117,9 @@
       "price": "120.00",
       "description": "Full Habeshan feast for events — injera, assorted wats, tibs, and drinks. Serves 10–12.",
       "recipe": "Package includes:\n- Large injera rolls\n- Doro wat\n- Misir wat\n- Beef tibs\n- Beyaynetu platter\n- Tej or soft drinks\n- Disposable serving ware\n\nMinimum 48h advance booking required.",
+      "badge": "Catering",
       "emoji": "🎉",
-      "image": "",
-      "badge": "Catering"
+      "image": ""
     },
     {
       "id": "mp2gmh0bcto1v0vqi1e",
