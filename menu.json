@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-15T17:06:13.525Z",
+  "_updated": "2026-05-15T17:24:55.202Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -186,6 +186,17 @@
       "badge": "Crispy snack",
       "emoji": "🍽",
       "image": "https://res.cloudinary.com/dy4ck5wom/image/upload/v1778864391/vv7y0uqlsiivmpwf9dvf.jpg"
+    },
+    {
+      "id": "mp76tp9cufvikqqjie",
+      "title": "Shekla Tibs | ሸካላ ጥብስ",
+      "category": "Grills & Tibs",
+      "price": "NaN",
+      "description": "Sizzling beef tibs served\nin a traditional clay pot.",
+      "recipe": "Beef cubes sautéed with onion,\njalapeño, rosemary, garlic, and\nniter kibbeh in a hot clay dish.",
+      "badge": "Hot Clay Pot",
+      "emoji": "🍽",
+      "image": "https://res.cloudinary.com/dy4ck5wom/image/upload/v1778865891/e9tww2mbyj0t47pdsk8f.jpg"
     }
   ]
 }
