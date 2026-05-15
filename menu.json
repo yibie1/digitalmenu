@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-15T15:15:09.392Z",
+  "_updated": "2026-05-15T15:23:54.257Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -35,9 +35,9 @@
     },
     {
       "id": "3",
-      "title": "Tibs (Beef)",
-      "category": "Grills & Tibs",
-      "price": "16.99",
+      "title": "Tibs (Beef) የበሬ ጥብስ",
+      "category": "Stews (Wat)",
+      "price": "10.00",
       "description": "Sautéed tender beef with rosemary, jalapeño, onions, and Habeshan spices. Served sizzling.",
       "recipe": "Ingredients:\n- 500g beef, cubed\n- 2 onions, sliced\n- 2 jalapeños\n- 2 sprigs rosemary\n- 2 tbsp niter kibbeh\n- 1 tsp mitmita\n- Salt & pepper\n\nMethod:\nHeat niter kibbeh in pan. Sear beef on high heat. Add onions, jalapeño, rosemary. Season with mitmita. Serve immediately.",
       "badge": "Popular",
