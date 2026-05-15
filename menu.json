@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-15T18:25:04.911Z",
+  "_updated": "2026-05-15T18:26:09.792Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -61,7 +61,7 @@
       "category": "Grills & Tibs",
       "price": "12.00",
       "description": "Habeshan-style minced beef seasoned with mitmita and niter kibbeh. Served raw, medium, or well-done.",
-      "recipe": "Ingredients:\n- 500g lean beef mince\n- 2 tbsp niter kibbeh\n- 1 tsp mitmita\n- 1 tsp cardamom\n- Salt to taste\n\nMethod:\nMix warm niter kibbeh with mitmita and cardamom. Combine with beef mince. Serve as desired — raw (tere), lightly warmed (lebleb), or cooked (yebesele).",
+      "recipe": "Method:\nMix warm niter kibbeh with mitmita and cardamom. Combine with beef mince. Serve as desired — raw (tere), lightly warmed (lebleb), or cooked (yebesele).",
       "badge": "Chef's Pick",
       "emoji": "🥩",
       "image": "https://res.cloudinary.com/dy4ck5wom/image/upload/v1778841415/y11fa7fzviuvo2bqv4kv.jpg"
