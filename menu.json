@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-15T10:26:25.645Z",
+  "_updated": "2026-05-15T10:34:49.211Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -149,7 +149,7 @@
       "category": "Stews (Wat)",
       "price": "14.00",
       "description": "Best",
-      "recipe": "Best",
+      "recipe": "Beef\nBerbere\nClarified Butter \nSalt\nKorerima",
       "badge": "Chefi",
       "emoji": "🍽",
       "image": "https://res.cloudinary.com/dy4ck5wom/image/upload/v1778840778/vwxljgypgoafpgpa4wwd.jpg"
