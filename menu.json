@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-15T15:11:41.524Z",
+  "_updated": "2026-05-15T15:12:06.082Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -48,7 +48,7 @@
       "id": "4",
       "title": "Injera",
       "category": "Bread & Sides",
-      "price": "3.50",
+      "price": "NaN",
       "description": "Traditional sourdough flatbread made from teff flour. The foundation of every Habeshan meal.",
       "recipe": "Ingredients:\n- 2 cups teff flour\n- 2.5 cups water\n- Pinch of salt\n\nMethod:\nMix teff and water, ferment 2–3 days. Add salt, pour thin batter onto hot flat pan. Cover and cook until bubbles form and surface is dry. Do not flip.",
       "badge": "",
