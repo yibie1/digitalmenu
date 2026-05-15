@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-15T15:12:06.082Z",
+  "_updated": "2026-05-15T15:12:25.253Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -81,7 +81,7 @@
       "id": "7",
       "title": "Beyaynetu (Fasting Platter)",
       "category": "Platters",
-      "price": "18.99",
+      "price": "10.00",
       "description": "A colourful vegan platter of assorted Habeshan dishes on injera — misir, shiro, gomen, and more.",
       "recipe": "Includes:\n- Misir wat (red lentils)\n- Shiro wat (chickpea stew)\n- Gomen (collard greens)\n- Tikil gomen (cabbage & carrots)\n- Fosolia (green beans)\n- Served on injera\n\nPerfect for fasting days or vegan guests.",
       "badge": "Vegan",
