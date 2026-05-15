@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-15T10:53:24.748Z",
+  "_updated": "2026-05-15T10:57:21.392Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -51,9 +51,9 @@
       "price": "3.50",
       "description": "Traditional sourdough flatbread made from teff flour. The foundation of every Habeshan meal.",
       "recipe": "Ingredients:\n- 2 cups teff flour\n- 2.5 cups water\n- Pinch of salt\n\nMethod:\nMix teff and water, ferment 2–3 days. Add salt, pour thin batter onto hot flat pan. Cover and cook until bubbles form and surface is dry. Do not flip.",
+      "badge": "",
       "emoji": "🫓",
-      "image": "",
-      "badge": ""
+      "image": "https://res.cloudinary.com/dy4ck5wom/image/upload/v1778842637/bfbvggtpiawgwm6dpgdj.jpg"
     },
     {
       "id": "5",
