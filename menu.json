@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-15T10:39:57.437Z",
+  "_updated": "2026-05-15T10:43:42.637Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -163,7 +163,7 @@
       "recipe": "Best",
       "badge": "Chef",
       "emoji": "🍽",
-      "image": ""
+      "image": "https://res.cloudinary.com/dy4ck5wom/image/upload/v1778841818/vsqgmfpirftxrfq5hfxc.jpg"
     },
     {
       "id": "mp2so35zhbro533rizj",
