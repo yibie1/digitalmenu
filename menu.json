@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-24T12:55:54.356Z",
+  "_updated": "2026-05-24T12:59:12.703Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -219,6 +219,17 @@
       "badge": "Chefi",
       "emoji": "🍽",
       "image": "https://res.cloudinary.com/dy4ck5wom/image/upload/v1779627242/gpttgzpwsgo1ljjketiy.jpg"
+    },
+    {
+      "id": "mpjsany6z6m0tny9rka",
+      "title": "የፆምአገልግል",
+      "category": "Stews (Wat)",
+      "price": "40.00",
+      "description": "Mix",
+      "recipe": "Vegan",
+      "badge": "Vegan",
+      "emoji": "🍽",
+      "image": "https://res.cloudinary.com/dy4ck5wom/image/upload/v1779627548/rczkpgz17jrhqsjglb5f.jpg"
     }
   ]
 }
