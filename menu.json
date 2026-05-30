@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-30T00:56:25.440Z",
+  "_updated": "2026-05-30T00:56:51.541Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -84,9 +84,9 @@
       "price": "6.99",
       "description": "Traditional Habeshan honey wine with a light, sweet, and slightly bitter taste.",
       "recipe": "Traditional fermented honey wine. Served chilled in a berele (flask-shaped glass).",
+      "badge": "Traditional",
       "emoji": "🍯",
-      "image": "",
-      "badge": "Traditional"
+      "image": ""
     },
     {
       "id": "9",
