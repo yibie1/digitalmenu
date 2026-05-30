@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-30T00:53:29.772Z",
+  "_updated": "2026-05-30T00:54:05.051Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -15,7 +15,7 @@
       "id": "2",
       "title": "Misir Wat",
       "category": "Stews (Wat)",
-      "price": "6.00",
+      "price": "7.00",
       "description": "Spiced red lentils slow-cooked with berbere, onions, and niter kibbeh. A vegan classic.",
       "recipe": "Ingredients:\n- 2 cups red lentils\n- 3 onions, diced\n- 3 tbsp berbere\n- 2 tbsp niter kibbeh\n- 4 garlic cloves\n- 1 tsp ginger\n- Salt to taste\n\nMethod:\nSauté onions until caramelised. Add garlic, ginger, berbere. Add lentils and water, simmer 30 min until thick.",
       "badge": "Vegan",
