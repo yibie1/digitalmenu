@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-31T21:12:14.359Z",
+  "_updated": "2026-05-31T21:17:31.594Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
@@ -230,6 +230,17 @@
       "badge": "Vegan",
       "emoji": "🍽",
       "image": "https://res.cloudinary.com/dy4ck5wom/image/upload/v1779627548/rczkpgz17jrhqsjglb5f.jpg"
+    },
+    {
+      "id": "mpua6gqxr8sd701b9z",
+      "title": "Water",
+      "category": "Drinks",
+      "price": "1.00",
+      "description": "Water",
+      "recipe": "Small",
+      "badge": "Water",
+      "emoji": "🍽",
+      "image": "https://res.cloudinary.com/dy4ck5wom/image/upload/v1780262247/m3vmar8sjvgxnl2u8dse.jpg"
     }
   ]
 }
