@@ -8,7 +8,7 @@ const defaultRestaurant = {
   description: 'Authentic Habeshan flavors delivered to your door. We offer delivery and catering services — bringing the taste of home to your table.',
   phone: '+44 7547 226868',
   whatsapp: '447547226868',
-  telegram: '447547226868',
+  telegram: '447510857915',
   email: 'info@yenehabeshan.com',
   address: 'London, United Kingdom',
 };
