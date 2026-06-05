@@ -1,11 +1,11 @@
 {
-  "_updated": "2026-05-31T21:19:16.561Z",
+  "_updated": "2026-06-05T17:59:38.278Z",
   "restaurant": {
     "name": "Yene Habeshan Food & Catering",
     "tagline": "Authentic Habeshan Taste Delivered to You",
-    "phone": "+44 7510857915",
-    "whatsapp": "447510857915",
-    "telegram": "447510857915",
+    "phone": "+44 7547 226868",
+    "whatsapp": "447547226868",
+    "telegram": "447547226868",
     "email": "info@yenehabeshan.com",
     "address": "Cardiff, United Kingdom",
     "description": "Authentic Habeshan flavors delivered to your door. We offer delivery and catering services — bringing the taste of home to your table."
@@ -241,6 +241,17 @@
       "badge": "Water",
       "emoji": "🍽",
       "image": "https://res.cloudinary.com/dy4ck5wom/image/upload/v1780262247/m3vmar8sjvgxnl2u8dse.jpg"
+    },
+    {
+      "id": "mq18b8kl41figa78mwj",
+      "title": "ፉል",
+      "category": "Stews (Wat)",
+      "price": "7.00",
+      "description": "Best",
+      "recipe": "Best",
+      "badge": "Chefs",
+      "emoji": "🍽",
+      "image": "https://res.cloudinary.com/dy4ck5wom/image/upload/v1780682373/ro19ybgfkoncngfghyxt.jpg"
     }
   ]
 }
